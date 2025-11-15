@@ -68,7 +68,9 @@ vsim.wlf
 *.vhdl
 *.vhdl.log
 *.vhdl.err
-
+*.rdb
+*.hdb
+*.dpi
 # NativeLink simulation artifacts
 *_nativelink_simulation.rpt
 *_nativelink_simulation.qmsg
