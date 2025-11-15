@@ -1,0 +1,69 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do Proyecto2_Arqui2_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/ProyectoArqui2 {C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:19:20 on Nov 14,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/intelFPGA_lite/18.1/ProyectoArqui2" C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg.sv 
+# -- Compiling package interp_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 17:19:20 on Nov 14,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/ProyectoArqui2 {C:/intelFPGA_lite/18.1/ProyectoArqui2/interpolador_hw.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:19:20 on Nov 14,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/intelFPGA_lite/18.1/ProyectoArqui2" C:/intelFPGA_lite/18.1/ProyectoArqui2/interpolador_hw.sv 
+# -- Compiling module interpolador_hw
+# -- Importing package interp_pkg
+# 
+# Top level modules:
+# 	interpolador_hw
+# End time: 17:19:20 on Nov 14,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/ProyectoArqui2 {C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg_tb.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 17:19:20 on Nov 14,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/intelFPGA_lite/18.1/ProyectoArqui2" C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg_tb.sv 
+# -- Compiling package interp_pkg_tb_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module interp_pkg_tb
+# 
+# Top level modules:
+# 	interp_pkg_tb
+# End time: 17:19:20 on Nov 14,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  interp_pkg_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" interp_pkg_tb 
+# Start time: 17:19:22 on Nov 14,2025
+# Loading sv_std.std
+# Loading work.interp_pkg
+# Loading work.interp_pkg_tb_sv_unit
+# Loading work.interp_pkg_tb
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# Caso 1: out=0 (esperado 10)
+# Caso 2: out=0 (esperado 20)
+# Caso 3: out=0 (esperado 30)
+# Caso 4: out=0 (esperado 40)
+# ** Note: $finish    : C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg_tb.sv(37)
+#    Time: 0 ps  Iteration: 0  Instance: /interp_pkg_tb
+# 1
+# Break in Module interp_pkg_tb at C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg_tb.sv line 37

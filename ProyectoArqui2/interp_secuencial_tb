@@ -1,0 +1,161 @@
+`timescale 1ns/1ps
+
+module interp_secuencial_tb;
+
+  // ----------------------------------------------------------------
+  // Parámetros de memoria y dirección
+  // ----------------------------------------------------------------
+  localparam ADDR_W   = 8;      // ancho de dirección para el DUT
+  localparam MEM_SIZE = 64;     // tamaño de la RAM de prueba
+
+  // Señales de clock / reset / control
+  logic clk;
+  logic rst;
+  logic start;
+
+  // Parámetros de imagen
+  logic [15:0] width;
+  logic [15:0] height;
+
+  // Direcciones base
+  logic [ADDR_W-1:0] base_in;
+  logic [ADDR_W-1:0] base_out;
+
+  // Interfaz de memoria hacia el DUT
+  logic [ADDR_W-1:0] mem_addr;
+  logic              mem_rd;
+  logic              mem_wr;
+  logic [7:0]        mem_rdata;
+  logic              mem_rvalid;
+  logic [7:0]        mem_wdata;
+
+  // Señales de estado del DUT
+  logic busy;
+  logic done;
+
+  // ----------------------------------------------------------------
+  // Modelo simple de RAM
+  // ----------------------------------------------------------------
+  logic [7:0] mem [0:MEM_SIZE-1];
+
+  // Registros internos para modelar la latencia de lectura
+  logic [ADDR_W-1:0] rd_addr_reg;
+  logic              rvalid_reg;
+  logic [7:0]        rdata_reg;
+
+  assign mem_rdata  = rdata_reg;
+  assign mem_rvalid = rvalid_reg;
+
+  // Clock: 100 MHz (10 ns)
+  initial clk = 0;
+  always #5 clk = ~clk;
+
+  // Modelo de RAM: lecturas con 1 ciclo de latencia y escrituras síncronas
+  always_ff @(posedge clk or posedge rst) begin
+    if (rst) begin
+      rd_addr_reg <= '0;
+      rdata_reg   <= '0;
+      rvalid_reg  <= 1'b0;
+    end else begin
+      // Por defecto, rvalid va a 0 y sólo se activa cuando hay lectura
+      rvalid_reg <= 1'b0;
+
+      // Escritura
+      if (mem_wr) begin
+        mem[mem_addr] <= mem_wdata;
+      end
+
+      // Lectura con un ciclo de retardo
+      if (mem_rd) begin
+        rd_addr_reg <= mem_addr;
+        rdata_reg   <= mem[mem_addr];
+        rvalid_reg  <= 1'b1;
+      end
+    end
+  end
+
+  // ----------------------------------------------------------------
+  // Instancia del DUT
+  // ----------------------------------------------------------------
+  interp_secuencial_hw #(
+    .ADDR_W(ADDR_W)
+  ) dut (
+    .clk      (clk),
+    .rst      (rst),
+    .start    (start),
+    .width    (width),
+    .height   (height),
+    .base_in  (base_in),
+    .base_out (base_out),
+    .mem_addr (mem_addr),
+    .mem_rd   (mem_rd),
+    .mem_rdata(mem_rdata),
+    .mem_rvalid(mem_rvalid),
+    .mem_wr   (mem_wr),
+    .mem_wdata(mem_wdata),
+    .busy     (busy),
+    .done     (done)
+  );
+
+  // ----------------------------------------------------------------
+  // Estímulos y verificación
+  // ----------------------------------------------------------------
+  integer i;
+
+  initial begin
+    // Inicialización
+    rst      = 1'b1;
+    start    = 1'b0;
+    width    = 16'd2;
+    height   = 16'd2;
+    base_in  = 8'd0;
+    base_out = 8'd16;
+
+    // Limpio memoria
+    for (i = 0; i < MEM_SIZE; i = i + 1)
+      mem[i] = 8'd0;
+
+    // Imagen de entrada 2x2 en base_in
+    // [0] = 10, [1] = 20
+    // [2] = 30, [3] = 40
+    mem[0] = 8'd10;
+    mem[1] = 8'd20;
+    mem[2] = 8'd30;
+    mem[3] = 8'd40;
+
+    // Salida limpia en base_out (16..19)
+    mem[16] = 8'd0;
+    mem[17] = 8'd0;
+    mem[18] = 8'd0;
+    mem[19] = 8'd0;
+
+    // Reset
+    repeat (4) @(posedge clk);
+    rst = 1'b0;
+    @(posedge clk);
+
+    // Arranque del procesamiento
+    $display("Iniciando procesamiento secuencial...");
+    start = 1'b1;
+    @(posedge clk);
+    start = 1'b0;
+
+    // Espero a que el DUT termine
+    wait (done == 1'b1);
+    @(posedge clk);
+
+    // Verificación de resultados:
+    // Como fx_q y fy_q están en 0, la interpolación es equivalente a copiar p00,
+    // así que esperamos que la salida sea igual a la imagen de entrada 2x2.
+    if (mem[16] !== 8'd10) $error("Fallo en mem[16]: esperado=10, obtenido=%0d", mem[16]);
+    if (mem[17] !== 8'd20) $error("Fallo en mem[17]: esperado=20, obtenido=%0d", mem[17]);
+    if (mem[18] !== 8'd30) $error("Fallo en mem[18]: esperado=30, obtenido=%0d", mem[18]);
+    if (mem[19] !== 8'd40) $error("Fallo en mem[19]: esperado=40, obtenido=%0d", mem[19]);
+
+    $display("======================================");
+    $display("  TODAS LAS PRUEBAS PASARON (2x2)    ");
+    $display("======================================");
+    $finish;
+  end
+
+endmodule
