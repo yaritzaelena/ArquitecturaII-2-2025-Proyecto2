@@ -1,6 +1,4 @@
 # Quartus project files
-*.qpf
-*.qsf
 *.rpt
 *.summary
 *.smsg
