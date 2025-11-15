@@ -1,0 +1,12 @@
+
+State Machine - |interp_secuencial_hw|state
+Name state.S_WRITE state.S_COMPUTE state.S_READ_P11 state.S_READ_P01 state.S_READ_P10 state.S_READ_P00 state.S_INIT state.S_IDLE state.S_NEXT 
+state.S_IDLE 0 0 0 0 0 0 0 0 0 
+state.S_INIT 0 0 0 0 0 0 1 1 0 
+state.S_READ_P00 0 0 0 0 0 1 0 1 0 
+state.S_READ_P10 0 0 0 0 1 0 0 1 0 
+state.S_READ_P01 0 0 0 1 0 0 0 1 0 
+state.S_READ_P11 0 0 1 0 0 0 0 1 0 
+state.S_COMPUTE 0 1 0 0 0 0 0 1 0 
+state.S_WRITE 1 0 0 0 0 0 0 1 0 
+state.S_NEXT 0 0 0 0 0 0 0 1 1 
