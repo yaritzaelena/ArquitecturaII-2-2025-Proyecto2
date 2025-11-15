@@ -83,3 +83,13 @@ vsim.wlf
 *.orig
 *.save
 *.backup
+*.hdb
+*.hdb
+*.xrf
+*.done
+*.hdb
+*.hdb
+ProyectoArqui2/incremental_db/compiled_partitions/Proyecto2_Arqui2.root_partition.map.cdb
+*.cdb
+*.ddb
+*.flock

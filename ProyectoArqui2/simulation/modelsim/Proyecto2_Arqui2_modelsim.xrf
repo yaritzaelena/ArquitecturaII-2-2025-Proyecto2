@@ -1,8 +1,8 @@
 vendor_name = ModelSim
-source_file = 1, C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg.sv
-source_file = 1, C:/intelFPGA_lite/18.1/ProyectoArqui2/interp_pkg_tb.sv
-source_file = 1, C:/intelFPGA_lite/18.1/ProyectoArqui2/interpolador_hw.sv
-source_file = 1, C:/intelFPGA_lite/18.1/ProyectoArqui2/db/Proyecto2_Arqui2.cbx.xml
+source_file = 1, C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ProyectoArqui2/interp_pkg.sv
+source_file = 1, C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ProyectoArqui2/interp_pkg_tb.sv
+source_file = 1, C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ProyectoArqui2/interpolador_hw.sv
+source_file = 1, C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ProyectoArqui2/db/Proyecto2_Arqui2.cbx.xml
 design_name = interpolador_hw
 instance = comp, \out[0]~output , out[0]~output, interpolador_hw, 1
 instance = comp, \out[1]~output , out[1]~output, interpolador_hw, 1

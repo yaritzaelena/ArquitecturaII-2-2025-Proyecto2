@@ -111,13 +111,13 @@ fy_q[14] => Mult5.IN17
 fy_q[14] => Add1.IN3
 fy_q[15] => Mult5.IN16
 fy_q[15] => Add1.IN2
-out[0] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[1] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[2] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[3] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[4] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[5] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[6] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
-out[7] <= clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[0] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[1] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[2] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[3] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[4] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[5] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[6] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
+out[7] << clamp_u8.DB_MAX_OUTPUT_PORT_TYPE
 
 
