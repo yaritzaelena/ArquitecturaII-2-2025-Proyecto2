@@ -91,3 +91,5 @@ ProyectoArqui2/incremental_db/compiled_partitions/Proyecto2_Arqui2.root_partitio
 *.cdb
 *.ddb
 *.flock
+ProyectoArqui2/db/Proyecto2_Arqui2.db_info
+/ProyectoArqui2/simulation/modelsim
