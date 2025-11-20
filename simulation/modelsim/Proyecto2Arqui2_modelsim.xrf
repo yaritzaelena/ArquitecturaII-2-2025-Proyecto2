@@ -1,0 +1,11 @@
+vendor_name = ModelSim
+source_file = 1, C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv
+source_file = 1, C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
+source_file = 1, C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv
+source_file = 1, C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
+source_file = 1, C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
+source_file = 1, C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/db/Proyecto2Arqui2.cbx.xml
+design_name = Proyecto2Arqui2
+instance = comp, \dummy_out~output , dummy_out~output, Proyecto2Arqui2, 1
+instance = comp, \dummy_in~input , dummy_in~input, Proyecto2Arqui2, 1
+instance = comp, \~QUARTUS_CREATED_GND~I , ~QUARTUS_CREATED_GND~I, Proyecto2Arqui2, 1

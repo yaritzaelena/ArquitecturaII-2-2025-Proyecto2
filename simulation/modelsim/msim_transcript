@@ -1,0 +1,110 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do Proyecto2Arqui2_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:25:52 on Nov 19,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv 
+# -- Compiling module Proyecto2Arqui2
+# 
+# Top level modules:
+# 	Proyecto2Arqui2
+# End time: 23:25:52 on Nov 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+cd C:\Users\irodr\Documents\ArquitecturaII-2-2025-Proyecto2
+# couldn't change working directory to "C:UsersirodrDocumentsArquitecturaII-2-2025-Proyecto2": no such file or directory
+cd C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2
+# reading modelsim.ini
+vlib work
+# ** Warning: (vlib-34) Library already exists at "work".
+vmap work work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work work 
+# Modifying modelsim.ini
+
+vlog -sv interp_pkg.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:27:26 on Nov 19,2025
+# vlog -reportprogress 300 -sv interp_pkg.sv 
+# -- Compiling package interp_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 23:27:26 on Nov 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv interp_secuencial.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:27:26 on Nov 19,2025
+# vlog -reportprogress 300 -sv interp_secuencial.sv 
+# -- Compiling package interp_secuencial_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module interp_secuencial
+# 
+# Top level modules:
+# 	interp_secuencial
+# End time: 23:27:26 on Nov 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv interp_simd4.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:27:26 on Nov 19,2025
+# vlog -reportprogress 300 -sv interp_simd4.sv 
+# -- Compiling package interp_simd4_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module interp_simd4
+# 
+# Top level modules:
+# 	interp_simd4
+# End time: 23:27:26 on Nov 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv interp_simd4_tb.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 23:27:26 on Nov 19,2025
+# vlog -reportprogress 300 -sv interp_simd4_tb.sv 
+# -- Compiling package interp_simd4_tb_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module interp_simd4_tb
+# 
+# Top level modules:
+# 	interp_simd4_tb
+# End time: 23:27:26 on Nov 19,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+
+vsim interp_simd4_tb
+# vsim interp_simd4_tb 
+# Start time: 23:27:26 on Nov 19,2025
+# Loading sv_std.std
+# Loading work.interp_pkg
+# Loading work.interp_simd4_tb_sv_unit
+# Loading work.interp_simd4_tb
+# Loading work.interp_simd4_sv_unit
+# Loading work.interp_simd4
+# Loading work.interp_secuencial_sv_unit
+# Loading work.interp_secuencial
+add wave *
+run -all
+# W_OUT = 4, H_OUT = 2
+# OK lane0 (x=0,y=0): 0
+# OK lane1 (x=1,y=0): 16
+# OK lane2 (x=2,y=0): 32
+# OK lane3 (x=3,y=0): 48
+# OK lane0 (x=0,y=1): 128
+# OK lane1 (x=1,y=1): 144
+# OK lane2 (x=2,y=1): 160
+# OK lane3 (x=3,y=1): 176
+# Prueba SIMD-4 completada.
+# ** Note: $stop    : interp_simd4_tb.sv(253)
+#    Time: 105 ns  Iteration: 1  Instance: /interp_simd4_tb
+# Break in Module interp_simd4_tb at interp_simd4_tb.sv line 253
+
+# End time: 23:28:59 on Nov 19,2025, Elapsed time: 0:01:33
+# Errors: 0, Warnings: 0

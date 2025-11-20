@@ -1,0 +1,5 @@
+|Proyecto2Arqui2
+dummy_in => dummy_out.DATAIN
+dummy_out << dummy_in.DB_MAX_OUTPUT_PORT_TYPE
+
+
