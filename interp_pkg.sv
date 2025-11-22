@@ -1,5 +1,5 @@
 // interp_pkg.sv
-// Paquete común para el proyecto de interpolación bilineal (Avance 3)
+
 
 package interp_pkg;
 

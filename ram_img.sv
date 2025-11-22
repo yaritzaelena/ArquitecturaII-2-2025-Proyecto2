@@ -4,7 +4,7 @@
 `timescale 1ns/1ps
 
 module ram_img #(
-  parameter int ADDR_WIDTH = 10,   // soporta 2^ADDR_WIDTH posiciones
+  parameter int ADDR_WIDTH = 19,   // soporta 2^ADDR_WIDTH posiciones
   parameter int DATA_WIDTH = 8
 )(
   input  logic                     clk,
@@ -16,13 +16,14 @@ module ram_img #(
 
   localparam int DEPTH = 1 << ADDR_WIDTH;
 
+  // memoria real
   logic [DATA_WIDTH-1:0] mem [0:DEPTH-1];
 
   always_ff @(posedge clk) begin
     if (we) begin
-      mem[addr] <= wdata;
+      mem[addr] <= wdata;   // escritura sincronizada
     end
-    rdata <= mem[addr];
+    rdata <= mem[addr];     // lectura sincronizada
   end
 
 endmodule

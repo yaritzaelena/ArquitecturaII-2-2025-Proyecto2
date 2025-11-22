@@ -14,6 +14,9 @@ vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/Arquitec
   C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ram_img.sv
 
 vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2 \
+  C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
+
+vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2 \
   C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
 
 vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2 \

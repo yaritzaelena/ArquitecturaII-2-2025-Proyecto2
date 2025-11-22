@@ -81,3 +81,10 @@ vsim.wlf
 *.orig
 *.save
 *.backup
+*.rdb
+*.rdb
+*.bak3
+*.bak2
+*.bak1
+db/Proyecto2Arqui2.quiproj.5824.rdr.flock
+db/Proyecto2Arqui2.qns
