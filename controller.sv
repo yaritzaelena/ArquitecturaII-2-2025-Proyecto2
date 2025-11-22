@@ -1,11 +1,7 @@
 // ===============================================================
-// controller.sv  (versión sin 'int', compatible con Quartus 18.1)
-// Controlador SIMD con:
-//  - FSM completa
-//  - Cálculo de direcciones
-//  - Registros SIMD (4 lanes)
-//  - Instancia de interp_simd4
-//  - RAM de entrada/salida single-port (conectada desde el top)
+// controller.sv
+// Controlador SIMD con RAM síncrona (1 ciclo de latencia)
+// FSM corregida con estados separados de ADDR/DATA para LOAD_TOP y LOAD_BOTTOM
 // ===============================================================
 
 `timescale 1ns/1ps
@@ -14,8 +10,8 @@ import interp_pkg::*;
 module controller #(
     parameter int LANES      = 4,
     parameter int FRAC       = FRAC_BITS,
-    parameter int IMG_W      = 512,
-    parameter int IMG_H      = 512,
+    parameter int IMG_W      = 8,     // para depuración rápida (luego 512)
+    parameter int IMG_H      = 8,
     parameter int ADDR_W     = 19
 )(
     input  logic              clk,
@@ -39,23 +35,21 @@ module controller #(
     // ===============================================================
     // 1. SIMD registers
     // ===============================================================
-	logic [7:0] p00_vec[LANES];
-	logic [7:0] p10_vec[LANES];
-	logic [7:0] p01_vec[LANES];
-	logic [7:0] p11_vec[LANES];
+    logic [7:0] p00_vec[LANES];
+    logic [7:0] p10_vec[LANES];
+    logic [7:0] p01_vec[LANES];
+    logic [7:0] p11_vec[LANES];
 
-	// fx, fy deben tener el mismo ancho que en interp_simd4: [FRAC-1:0]
-	logic [FRAC-1:0] fx_vec[LANES];
-	logic [FRAC-1:0] fy_vec[LANES];
+    logic [FRAC-1:0] fx_vec[LANES];
+    logic [FRAC-1:0] fy_vec[LANES];
 
-	logic [7:0] pixel_out_vec[LANES];
-	logic       valid_out_simd, valid_in_simd;
+    logic [7:0] pixel_out_vec[LANES];
+    logic       valid_in_simd;
+    logic       valid_out_simd;
 
-	// Por ahora: fx = fy = 0.0
-	localparam logic [FRAC-1:0] FX_CONST = '0;
-	localparam logic [FRAC-1:0] FY_CONST = '0;
-
-
+    // Por ahora: fx = fy = 0.0
+    localparam logic [FRAC-1:0] FX_CONST = '0;
+    localparam logic [FRAC-1:0] FY_CONST = '0;
 
     // ===============================================================
     // 2. Instancia del bloque SIMD
@@ -80,10 +74,12 @@ module controller #(
     // ===============================================================
     // 3. FSM
     // ===============================================================
-    typedef enum logic [2:0] {
+    typedef enum logic [3:0] {
         S_IDLE,
-        S_LOAD_TOP,
-        S_LOAD_BOTTOM,
+        S_LOAD_TOP_ADDR,
+        S_LOAD_TOP_DATA,
+        S_LOAD_BOTTOM_ADDR,
+        S_LOAD_BOTTOM_DATA,
         S_COMPUTE,
         S_WRITE,
         S_NEXT,
@@ -94,10 +90,10 @@ module controller #(
 
     localparam int BLOCKS_X = IMG_W / LANES;
 
-    logic [$clog2(BLOCKS_X)-1:0] x_block;
-    logic [$clog2(IMG_H)-1:0]    y_block;
+    logic [$clog2(BLOCKS_X)-1:0] x_block;     // bloque horizontal
+    logic [$clog2(IMG_H)-1:0]    y_block;     // fila de salida
 
-    // 0..(2*LANES-1): para leer p00/p10 (fila top) o p01/p11 (fila bottom)
+    // 0..(2*LANES-1): para leer p00/p10 o p01/p11
     logic [$clog2(2*LANES)-1:0]  load_cnt;
 
     // 0..(LANES-1): para escribir pixel_out_vec
@@ -111,17 +107,15 @@ module controller #(
     logic [ADDR_W-1:0] addr_p01_vec[LANES];
     logic [ADDR_W-1:0] addr_p11_vec[LANES];
 
-    integer k; // índice para los bucles
+    integer k;
 
     always_comb begin
         for (k = 0; k < LANES; k = k + 1) begin
-            // Coordenadas de salida del lane k
-            // x_pix = x_block*LANES + k
-            // y_pix = y_block
             logic [ADDR_W-1:0] x_pix;
             logic [ADDR_W-1:0] y_pix;
             logic [ADDR_W-1:0] x0, x1, y0, y1;
 
+            // Coordenadas de salida del lane k
             x_pix = x_block*LANES + k;
             y_pix = y_block;
 
@@ -130,9 +124,6 @@ module controller #(
             y0 = y_pix;
             y1 = y_pix + 1;
 
-            // Como y_block solo llega hasta IMG_H-2 (por condición en S_NEXT),
-            // y x_block solo llega hasta BLOCKS_X-1 (y LANES divide IMG_W),
-            // no deberíamos salirnos de rango en x1,y1.
             addr_p00_vec[k] = y0*IMG_W + x0;
             addr_p10_vec[k] = y0*IMG_W + x1;
             addr_p01_vec[k] = y1*IMG_W + x0;
@@ -161,9 +152,8 @@ module controller #(
                 p10_vec[i] <= '0;
                 p01_vec[i] <= '0;
                 p11_vec[i] <= '0;
-                //fx_vec[i]  <= FX_CONST;
-                //fy_vec[i]  <= FY_CONST;
             end
+
         end else begin
             state <= next_state;
 
@@ -177,8 +167,15 @@ module controller #(
                     end
                 end
 
-                S_LOAD_TOP: begin
-                    // Guardamos p00 y p10 según load_cnt
+                // ============================
+                // TOP ROW: capturar datos
+                // ============================
+                S_LOAD_TOP_ADDR: begin
+                    // nada; solo se usa load_cnt tal cual
+                end
+
+                S_LOAD_TOP_DATA: begin
+                    // in_rdata corresponde a la dirección emitida en S_LOAD_TOP_ADDR
                     if (load_cnt < LANES)
                         p00_vec[load_cnt] <= in_rdata;
                     else
@@ -190,8 +187,14 @@ module controller #(
                         load_cnt <= load_cnt + 1;
                 end
 
-                S_LOAD_BOTTOM: begin
-                    // Guardamos p01 y p11
+                // ============================
+                // BOTTOM ROW: capturar datos
+                // ============================
+                S_LOAD_BOTTOM_ADDR: begin
+                    // nada; solo se usa load_cnt tal cual
+                end
+
+                S_LOAD_BOTTOM_DATA: begin
                     if (load_cnt < LANES)
                         p01_vec[load_cnt] <= in_rdata;
                     else
@@ -203,15 +206,19 @@ module controller #(
                         load_cnt <= load_cnt + 1;
                 end
 
+                // ============================
+                // Escritura de resultados
+                // ============================
                 S_WRITE: begin
-                    if (valid_out_simd) begin
-                        if (lane_wr_idx == LANES-1)
-                            lane_wr_idx <= '0;
-                        else
-                            lane_wr_idx <= lane_wr_idx + 1;
-                    end
+                    if (lane_wr_idx == LANES-1)
+                        lane_wr_idx <= '0;
+                    else
+                        lane_wr_idx <= lane_wr_idx + 1;
                 end
 
+                // ============================
+                // Avance de bloques
+                // ============================
                 S_NEXT: begin
                     if (x_block == BLOCKS_X-1) begin
                         x_block <= '0;
@@ -224,7 +231,7 @@ module controller #(
                     end
                 end
 
-                default: ; // en S_COMPUTE y S_DONE no actualizamos contadores aquí
+                default: ;
             endcase
         end
     end
@@ -232,11 +239,11 @@ module controller #(
     // ===============================================================
     // 6. Lógica combinacional de la FSM
     // ===============================================================
-	 
-	 // Dirección de salida: mismo (x,y) que p00, pero por lane
     logic [ADDR_W-1:0] x_out_lane_wr;
     logic [ADDR_W-1:0] y_out_wr;
+
     always_comb begin
+        // valores por defecto
         next_state    = state;
         done          = 1'b0;
 
@@ -251,64 +258,93 @@ module controller #(
         valid_in_simd = 1'b0;
 
         case (state)
+            // ------------------------
+            // IDLE
+            // ------------------------
             S_IDLE: begin
                 if (start)
-                    next_state = S_LOAD_TOP;
+                    next_state = S_LOAD_TOP_ADDR;
             end
 
-            S_LOAD_TOP: begin
-                // Lectura de p00 y p10
+            // ------------------------
+            // LOAD TOP (ADDR/DATA)
+            // ------------------------
+            S_LOAD_TOP_ADDR: begin
+                // emitir dirección para p00/p10
                 in_we = 1'b0;
                 if (load_cnt < LANES)
                     in_addr = addr_p00_vec[load_cnt];
                 else
                     in_addr = addr_p10_vec[load_cnt-LANES];
 
-                if (load_cnt == 2*LANES-1)
-                    next_state = S_LOAD_BOTTOM;
+                next_state = S_LOAD_TOP_DATA;
             end
 
-            S_LOAD_BOTTOM: begin
-                // Lectura de p01 y p11
+            S_LOAD_TOP_DATA: begin
+                // aquí se captura in_rdata (en always_ff)
+                if (load_cnt == 2*LANES-1)
+                    next_state = S_LOAD_BOTTOM_ADDR;
+                else
+                    next_state = S_LOAD_TOP_ADDR;
+            end
+
+            // ------------------------
+            // LOAD BOTTOM (ADDR/DATA)
+            // ------------------------
+            S_LOAD_BOTTOM_ADDR: begin
                 in_we = 1'b0;
                 if (load_cnt < LANES)
                     in_addr = addr_p01_vec[load_cnt];
                 else
                     in_addr = addr_p11_vec[load_cnt-LANES];
 
-                if (load_cnt == 2*LANES-1)
-                    next_state = S_COMPUTE;
+                next_state = S_LOAD_BOTTOM_DATA;
             end
 
+            S_LOAD_BOTTOM_DATA: begin
+                if (load_cnt == 2*LANES-1)
+                    next_state = S_COMPUTE;
+                else
+                    next_state = S_LOAD_BOTTOM_ADDR;
+            end
+
+            // ------------------------
+            // COMPUTE
+            // ------------------------
             S_COMPUTE: begin
-                valid_in_simd = 1'b1;   // un pulso
+                valid_in_simd = 1'b1;   // pulso de un ciclo
                 next_state    = S_WRITE;
             end
 
+            // ------------------------
+            // WRITE: escribir los LANES
+            // ------------------------
             S_WRITE: begin
-                if (valid_out_simd) begin
-                    out_we = 1'b1;
+                out_we = 1'b1;
 
+                x_out_lane_wr = x_block*LANES + lane_wr_idx;
+                y_out_wr      = y_block;
 
+                out_addr  = y_out_wr*IMG_W + x_out_lane_wr;
+                out_wdata = pixel_out_vec[lane_wr_idx];
 
-                    x_out_lane_wr = x_block*LANES + lane_wr_idx;
-                    y_out_wr      = y_block;
-
-                    out_addr  = y_out_wr*IMG_W + x_out_lane_wr;
-                    out_wdata = pixel_out_vec[lane_wr_idx];
-
-                    if (lane_wr_idx == LANES-1)
-                        next_state = S_NEXT;
-                end
+                if (lane_wr_idx == LANES-1)
+                    next_state = S_NEXT;
             end
 
+            // ------------------------
+            // NEXT: avanzar bloque/fila
+            // ------------------------
             S_NEXT: begin
                 if ((x_block == BLOCKS_X-1) && (y_block == IMG_H-2))
                     next_state = S_DONE;
                 else
-                    next_state = S_LOAD_TOP;
+                    next_state = S_LOAD_TOP_ADDR;
             end
 
+            // ------------------------
+            // DONE
+            // ------------------------
             S_DONE: begin
                 done = 1'b1;
                 if (!start)
@@ -320,3 +356,5 @@ module controller #(
     end
 
 endmodule
+
+

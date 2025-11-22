@@ -3,7 +3,6 @@ import interp_pkg::*;
 
 module controller_tb;
 
-
     logic clk;
     logic rst_n;
     logic start;
@@ -11,48 +10,50 @@ module controller_tb;
 
     // RAM ENTRADA
     logic                in_we;
-    logic [18:0]         in_addr;     // 19 bits para 512*512
+    logic [18:0]         in_addr;
     logic [7:0]          in_wdata;
     logic [7:0]          in_rdata;
 
     // RAM SALIDA
     logic                out_we;
-    logic [18:0]         out_addr;    // 19 bits
+    logic [18:0]         out_addr;
     logic [7:0]          out_wdata;
 
     // ====================================================
-    // Instancias
+    // RAM de entrada
     // ====================================================
-
-    // RAM de entrada (imagen original)
     ram_img #(
         .ADDR_WIDTH(19),
         .DATA_WIDTH(8)
     ) ram_in (
         .clk    (clk),
-        .we     (in_we),
+        .we     (in_we),      // Solo controller lo maneja
         .addr   (in_addr),
         .wdata  (in_wdata),
         .rdata  (in_rdata)
     );
 
-    // RAM de salida (imagen resultante)
+    // ====================================================
+    // RAM de salida
+    // ====================================================
     ram_img #(
         .ADDR_WIDTH(19),
         .DATA_WIDTH(8)
     ) ram_out (
         .clk    (clk),
-        .we     (out_we),
+        .we     (out_we),     // Solo controller lo maneja
         .addr   (out_addr),
         .wdata  (out_wdata),
-        .rdata  ()     // no necesitamos leerla en TB
+        .rdata  ()
     );
 
+    // ====================================================
     // Controller
+    // ====================================================
     controller #(
         .LANES(4),
         .FRAC(FRAC_BITS),
-        .IMG_W(512),
+        .IMG_W(512),     // Escalado a resolución real
         .IMG_H(512),
         .ADDR_W(19)
     ) dut (
@@ -69,48 +70,60 @@ module controller_tb;
         .out_wdata(out_wdata)
     );
 
-
+    // ====================================================
+    // Clock
+    // ====================================================
     initial clk = 0;
     always #5 clk = ~clk;   // 100 MHz
 
-
-    // Estímulo
-
+    // ====================================================
+    // Estímulo principal
+    // ====================================================
     initial begin
-        // Inicialización
         rst_n = 0;
         start = 0;
-        in_we = 0;
-        in_addr = 0;
-        in_wdata = 0;
 
-        // Pre-cargar RAM de entrada ANTES del reset
-        inicializar_imagen();
+        inicializar_imagen();   // 512x512
 
         #20;
-        rst_n = 1;      // liberar reset
+        rst_n = 1;
 
-        #50;
-        start = 1;      // dar pulso de start
+        #20;
+        start = 1;
         #10;
         start = 0;
 
         // Esperar a que termine
         wait (done == 1);
 
-        #100;
+        #20;
+        mostrar_resultados();
+
         $display("===== SIMULACIÓN COMPLETA =====");
         $stop;
     end
 
     // ====================================================
-    // Inicialización de RAM (imagen patrón)
+    // Inicializar RAM de entrada 512x512
     // ====================================================
     task inicializar_imagen();
         integer i;
-        for (i = 0; i < 512*512; i = i + 1) begin
-            ram_in.mem[i] = i % 256;   // patrón simple: 0,1,2,...255,0,1,...
+        for (i = 0; i < 512*512; i++) begin
+            ram_in.mem[i] = i % 256;   // patrón simple
+        end
+    endtask
+
+    // ====================================================
+    // Mostrar primeros valores de salida
+    // ====================================================
+    task mostrar_resultados();
+        integer i;
+        $display("===== RAM OUTPUT (primeros 32 valores) =====");
+        for (i = 0; i < 32; i++) begin
+            $display("out[%0d] = %0d", i, ram_out.mem[i]);
         end
     endtask
 
 endmodule
+
+

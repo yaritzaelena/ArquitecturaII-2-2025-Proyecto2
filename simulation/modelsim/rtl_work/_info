@@ -7,283 +7,30 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/simulation/modelsim
-vcontroller
-Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
-Z2 DXx4 work 10 interp_pkg 0 22 81Ud@6W]BQ:;DNVA7Oo[O1
-DXx4 work 18 controller_sv_unit 0 22 EMG6NXeomUZTDgJ7ccV1L3
-Z3 VDg1SIo80bB@j0V0VzS_@n1
-r1
-!s85 0
-31
-!i10b 1
-!s100 g_7X[HDlEXCPzzEa05z<Q2
-I7HAcDUTHAg5WfekXX21493
-!s105 controller_sv_unit
-S1
-R0
-Z4 w1763773593
-Z5 8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller.sv
-Z6 FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller.sv
-L0 14
-Z7 OV;L;10.5b;63
-Z8 !s108 1763774766.000000
-Z9 !s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller.sv|
-Z10 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller.sv|
-!i113 1
-Z11 o-sv -work work
-Z12 !s92 -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2
-Z13 tCvgOpt 0
-Xcontroller_sv_unit
-R1
-R2
-VEMG6NXeomUZTDgJ7ccV1L3
-r1
-!s85 0
-31
-!i10b 1
-!s100 XAb^eM[Sl>O5:eV9E3H7T1
-IEMG6NXeomUZTDgJ7ccV1L3
-!i103 1
-S1
-R0
-R4
-R5
-R6
-L0 12
-R7
-R8
-R9
-R10
-!i113 1
-R11
-R12
-R13
-vcontroller_tb
-R1
-R2
-DXx4 work 21 controller_tb_sv_unit 0 22 3eIg1i`oViM[c8lkVZEbg2
-R3
-r1
-!s85 0
-31
-!i10b 1
-!s100 cWb[mSJhddaTBUnhb5jkh1
-IRcoc=TGIMzQmcbJI=j5QK2
-!s105 controller_tb_sv_unit
-S1
-R0
-Z14 w1763774440
-Z15 8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv
-Z16 FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv
-L0 4
-R7
-R8
-Z17 !s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv|
-Z18 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv|
-!i113 1
-R11
-R12
-R13
-Xcontroller_tb_sv_unit
-R1
-R2
-V3eIg1i`oViM[c8lkVZEbg2
-r1
-!s85 0
-31
-!i10b 1
-!s100 O787]USQPJHQSQ0KlzcoK2
-I3eIg1i`oViM[c8lkVZEbg2
-!i103 1
-S1
-R0
-R14
-R15
-R16
-L0 2
-R7
-R8
-R17
-R18
-!i113 1
-R11
-R12
-R13
-Xinterp_pkg
-R1
-Z19 !s110 1763774766
-!i10b 1
-!s100 D[<g=60zV6^E]I]<ZH]Y40
-I81Ud@6W]BQ:;DNVA7Oo[O1
-V81Ud@6W]BQ:;DNVA7Oo[O1
-S1
-R0
-w1763766208
-8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv
-FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv
-L0 4
-R7
-r1
-!s85 0
-31
-R8
-!s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv|
-!i113 1
-R11
-R12
-R13
-vinterp_secuencial
-R1
-R2
-DXx4 work 25 interp_secuencial_sv_unit 0 22 3SOSgJ:_ZkCVf]ODkPSkU0
-R3
-r1
-!s85 0
-31
-!i10b 1
-!s100 L<C1;e84oOeWzocaE8Ad;0
-INemii9_@ADG1S]Nf>hka30
-!s105 interp_secuencial_sv_unit
-S1
-R0
-Z20 w1763758096
-Z21 8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
-Z22 FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
-L0 8
-R7
-R8
-Z23 !s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv|
-Z24 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv|
-!i113 1
-R11
-R12
-R13
-Xinterp_secuencial_sv_unit
-R1
-R2
-V3SOSgJ:_ZkCVf]ODkPSkU0
-r1
-!s85 0
-31
-!i10b 1
-!s100 ]Z1Q5gca2=K4S4VRN_Lz43
-I3SOSgJ:_ZkCVf]ODkPSkU0
-!i103 1
-S1
-R0
-R20
-R21
-R22
-L0 6
-R7
-R8
-R23
-R24
-!i113 1
-R11
-R12
-R13
-vinterp_simd4
-R1
-R2
-DXx4 work 20 interp_simd4_sv_unit 0 22 03`G_4E<Y_D8]Ji8R1U_c3
-R3
-r1
-!s85 0
-31
-!i10b 1
-!s100 JJ1SnCF2n:h^c49b@ZR3]2
-I2EfZke5Td2JGlaz^A5RSb1
-!s105 interp_simd4_sv_unit
-S1
-R0
-R20
-Z25 8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
-Z26 FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
-L0 7
-R7
-R8
-Z27 !s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv|
-Z28 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv|
-!i113 1
-R11
-R12
-R13
-Xinterp_simd4_sv_unit
-R1
-R2
-V03`G_4E<Y_D8]Ji8R1U_c3
-r1
-!s85 0
-31
-!i10b 1
-!s100 36^g7:dTMmKWaNDL6`X^>2
-I03`G_4E<Y_D8]Ji8R1U_c3
-!i103 1
-S1
-R0
-R20
-R25
-R26
-L0 5
-R7
-R8
-R27
-R28
-!i113 1
-R11
-R12
-R13
+Z0 dC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/simulation/modelsim
 vProyecto2Arqui2
-R1
-R19
+DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+!s110 1763784955
 !i10b 1
 !s100 @F2OL[RBYdOQzaQ7YKCFi0
-IFVa14l^hLEl9k]:]IkBXQ1
-R3
+IAfXm^acR[>WkoSaaemh;_0
+VDg1SIo80bB@j0V0VzS_@n1
 !s105 Proyecto2Arqui2_sv_unit
 S1
 R0
-w1763758095
-8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
-FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
+w1763614206
+8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
+FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
 L0 1
-R7
+OV;L;10.5b;63
 r1
 !s85 0
 31
-R8
-!s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
+!s108 1763784954.000000
+!s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
 !i113 1
-R11
-R12
-R13
+o-sv -work work
+!s92 -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2
+tCvgOpt 0
 n@proyecto2@arqui2
-vram_img
-R1
-R19
-!i10b 1
-!s100 O@8efoX_<fL7Zf=jAcMCF1
-IE_;7L:5U8XJ1a19@UGSlZ0
-R3
-!s105 ram_img_sv_unit
-S1
-R0
-w1763774523
-8C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ram_img.sv
-FC:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ram_img.sv
-L0 6
-R7
-r1
-!s85 0
-31
-R8
-!s107 C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ram_img.sv|
-!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2|C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/ram_img.sv|
-!i113 1
-R11
-R12
-R13

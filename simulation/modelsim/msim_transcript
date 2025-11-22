@@ -10,44 +10,160 @@
 # Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # 
-# vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2 {C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv}
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 18:13:16 on Nov 21,2025
-# vlog -reportprogress 300 -sv -work work "+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2" C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv 
+# Start time: 22:15:54 on Nov 21,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv 
 # -- Compiling module Proyecto2Arqui2
 # 
 # Top level modules:
 # 	Proyecto2Arqui2
-# End time: 18:13:17 on Nov 21,2025, Elapsed time: 0:00:01
+# End time: 22:15:55 on Nov 21,2025, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # 
-# vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2 {C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv}
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 18:13:17 on Nov 21,2025
-# vlog -reportprogress 300 -sv -work work "+incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2" C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv 
-# ** Error: C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv(2): (vlog-13006) Could not find the package (interp_pkg).  Design read will continue, but expect a cascade of errors after this failure.  Furthermore if you experience a vopt-7 error immediately before this error then please check the package names or the library search paths on the command line.
-# End time: 18:13:17 on Nov 21,2025, Elapsed time: 0:00:00
+# Start time: 22:15:55 on Nov 21,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv 
+# ** Error: C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv(2): (vlog-13006) Could not find the package (interp_pkg).  Design read will continue, but expect a cascade of errors after this failure.  Furthermore if you experience a vopt-7 error immediately before this error then please check the package names or the library search paths on the command line.
+# End time: 22:15:55 on Nov 21,2025, Elapsed time: 0:00:00
 # Errors: 1, Warnings: 0
 # ** Error: C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vlog failed.
 # Error in macro ./Proyecto2Arqui2_run_msim_rtl_verilog.do line 10
 # C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vlog failed.
 #     while executing
-# "vlog -sv -work work +incdir+C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2 {C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/A..."
-cd C:/intelFPGA_lite/18.1/Proyecto2ArquiGithub/ArquitecturaII-2-2025-Proyecto2
-# reading C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini
+# "vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/control..."
+cd C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2
+# reading modelsim.ini
+vlib work
+# ** Warning: (vlib-34) Library already exists at "work".
+vmap work work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work work 
+# Modifying modelsim.ini
 
+vlog -sv interp_pkg.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:16:20 on Nov 21,2025
+# vlog -reportprogress 300 -sv interp_pkg.sv 
+# -- Compiling package interp_pkg
+# 
+# Top level modules:
+# 	--none--
+# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv ram_img.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:16:20 on Nov 21,2025
+# vlog -reportprogress 300 -sv ram_img.sv 
+# -- Compiling module ram_img
+# 
+# Top level modules:
+# 	ram_img
+# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv interp_secuencial.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:16:20 on Nov 21,2025
+# vlog -reportprogress 300 -sv interp_secuencial.sv 
+# -- Compiling package interp_secuencial_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module interp_secuencial
+# 
+# Top level modules:
+# 	interp_secuencial
+# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv interp_simd4.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:16:20 on Nov 21,2025
+# vlog -reportprogress 300 -sv interp_simd4.sv 
+# -- Compiling package interp_simd4_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module interp_simd4
+# 
+# Top level modules:
+# 	interp_simd4
+# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv controller.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:16:20 on Nov 21,2025
+# vlog -reportprogress 300 -sv controller.sv 
+# -- Compiling package controller_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module controller
+# 
+# Top level modules:
+# 	controller
+# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -sv controller_tb.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:16:20 on Nov 21,2025
+# vlog -reportprogress 300 -sv controller_tb.sv 
+# -- Compiling package controller_tb_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module controller_tb
+# 
+# Top level modules:
+# 	controller_tb
+# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
 
+vsim controller_tb
+# vsim controller_tb 
+# Start time: 22:16:20 on Nov 21,2025
+# Loading sv_std.std
+# Loading work.interp_pkg
+# Loading work.controller_tb_sv_unit
+# Loading work.controller_tb
+# Loading work.ram_img
+# Loading work.controller_sv_unit
+# Loading work.controller
+# Loading work.interp_simd4_sv_unit
+# Loading work.interp_simd4
+# Loading work.interp_secuencial_sv_unit
+# Loading work.interp_secuencial
+add wave *
+run -all
+# ===== RAM OUTPUT (primeros 32 valores) =====
+# out[0] = 0
+# out[1] = 1
+# out[2] = 2
+# out[3] = 3
+# out[4] = 4
+# out[5] = 5
+# out[6] = 6
+# out[7] = 7
+# out[8] = 8
+# out[9] = 9
+# out[10] = 10
+# out[11] = 11
+# out[12] = 12
+# out[13] = 13
+# out[14] = 14
+# out[15] = 15
+# out[16] = 16
+# out[17] = 17
+# out[18] = 18
+# out[19] = 19
+# out[20] = 20
+# out[21] = 21
+# out[22] = 22
+# out[23] = 23
+# out[24] = 24
+# out[25] = 25
+# out[26] = 26
+# out[27] = 27
+# out[28] = 28
+# out[29] = 29
+# out[30] = 30
+# out[31] = 31
+# ===== SIMULACIÓN COMPLETA =====
+# ** Note: $stop    : controller_tb.sv(103)
+#    Time: 24855105 ns  Iteration: 0  Instance: /controller_tb
+# Break in Module controller_tb at controller_tb.sv line 103
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# End time: 22:25:54 on Nov 21,2025, Elapsed time: 0:09:34
+# Errors: 0, Warnings: 0
