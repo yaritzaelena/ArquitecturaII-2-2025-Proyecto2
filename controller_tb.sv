@@ -8,6 +8,9 @@ module controller_tb;
     logic start;
     logic done;
 
+    // Señal de stepping funcional
+    logic allow_tick;
+
     // RAM ENTRADA
     logic                in_we;
     logic [18:0]         in_addr;
@@ -19,37 +22,30 @@ module controller_tb;
     logic [18:0]         out_addr;
     logic [7:0]          out_wdata;
 
-    // ====================================================
-    // RAM de entrada
-    // ====================================================
+    // Instancias RAM (igual que antes)
     ram_img #(
         .ADDR_WIDTH(19),
         .DATA_WIDTH(8)
     ) ram_in (
-        .clk    (clk),
-        .we     (in_we),      // Solo controller lo maneja
-        .addr   (in_addr),
-        .wdata  (in_wdata),
-        .rdata  (in_rdata)
+        .clk   (clk),
+        .we    (in_we),
+        .addr  (in_addr),
+        .wdata (in_wdata),
+        .rdata (in_rdata)
     );
 
-    // ====================================================
-    // RAM de salida
-    // ====================================================
     ram_img #(
         .ADDR_WIDTH(19),
         .DATA_WIDTH(8)
     ) ram_out (
-        .clk    (clk),
-        .we     (out_we),     // Solo controller lo maneja
-        .addr   (out_addr),
-        .wdata  (out_wdata),
-        .rdata  ()
+        .clk   (clk),
+        .we    (out_we),
+        .addr  (out_addr),
+        .wdata (out_wdata),
+        .rdata ()
     );
 
-    // ====================================================
-    // Controller
-    // ====================================================
+    // DUT
     controller #(
         .LANES(4),
         .FRAC(FRAC_BITS),
@@ -57,17 +53,18 @@ module controller_tb;
         .IMG_H(512),
         .ADDR_W(19)
     ) dut (
-        .clk(clk),
-        .rst_n(rst_n),
-        .start(start),
-        .done(done),
-        .in_we(in_we),
-        .in_addr(in_addr),
-        .in_wdata(in_wdata),
-        .in_rdata(in_rdata),
-        .out_we(out_we),
-        .out_addr(out_addr),
-        .out_wdata(out_wdata)
+        .clk       (clk),
+        .rst_n     (rst_n),
+        .allow_tick(allow_tick),
+        .start     (start),
+        .done      (done),
+        .in_we     (in_we),
+        .in_addr   (in_addr),
+        .in_wdata  (in_wdata),
+        .in_rdata  (in_rdata),
+        .out_we    (out_we),
+        .out_addr  (out_addr),
+        .out_wdata (out_wdata)
     );
 
     // ====================================================
@@ -80,8 +77,9 @@ module controller_tb;
     // Estímulo principal
     // ====================================================
     initial begin
-        rst_n = 0;
-        start = 0;
+        rst_n      = 0;
+        start      = 0;
+        allow_tick = 1'b1; // en este testbench se deja siempre habilitado
 
         inicializar_imagen();   // 512x512
 
@@ -93,29 +91,24 @@ module controller_tb;
         #10;
         start = 0;
 
-        // Esperar a que termine
-        wait (done == 1);
+        wait(done);
 
-        #20;
         mostrar_resultados();
 
-        $display("===== SIMULACIÓN COMPLETA =====");
-        $stop;
+        #100;
+        $finish;
     end
 
     // ====================================================
-    // Inicializar RAM de entrada 512x512
+    // Tasks auxiliares (los mismos que ya tenías)
     // ====================================================
     task inicializar_imagen();
         integer i;
-        for (i = 0; i < 512*512; i++) begin
-            ram_in.mem[i] = i % 256;   // patrón simple
+        for (i = 0; i < (1<<19); i++) begin
+            ram_in.mem[i] = 8'(i % 256);
         end
     endtask
 
-    // ====================================================
-    // Mostrar primeros valores de salida
-    // ====================================================
     task mostrar_resultados();
         integer i;
         $display("===== RAM OUTPUT (primeros 32 valores) =====");
@@ -125,5 +118,6 @@ module controller_tb;
     endtask
 
 endmodule
+
 
 

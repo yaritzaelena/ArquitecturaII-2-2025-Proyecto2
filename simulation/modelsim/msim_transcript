@@ -10,110 +10,91 @@
 # Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # 
-# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv}
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:15:54 on Nov 21,2025
-# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv 
-# -- Compiling module Proyecto2Arqui2
-# 
-# Top level modules:
-# 	Proyecto2Arqui2
-# End time: 22:15:55 on Nov 21,2025, Elapsed time: 0:00:01
-# Errors: 0, Warnings: 0
-# 
-# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv}
-# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:15:55 on Nov 21,2025
-# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv 
-# ** Error: C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv(2): (vlog-13006) Could not find the package (interp_pkg).  Design read will continue, but expect a cascade of errors after this failure.  Furthermore if you experience a vopt-7 error immediately before this error then please check the package names or the library search paths on the command line.
-# End time: 22:15:55 on Nov 21,2025, Elapsed time: 0:00:00
-# Errors: 1, Warnings: 0
-# ** Error: C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vlog failed.
-# Error in macro ./Proyecto2Arqui2_run_msim_rtl_verilog.do line 10
-# C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/vlog failed.
-#     while executing
-# "vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/control..."
-cd C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2
-# reading modelsim.ini
-vlib work
-# ** Warning: (vlib-34) Library already exists at "work".
-vmap work work
-# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
-# vmap work work 
-# Modifying modelsim.ini
-
-vlog -sv interp_pkg.sv
-# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:16:20 on Nov 21,2025
-# vlog -reportprogress 300 -sv interp_pkg.sv 
+# Start time: 21:34:44 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv 
 # -- Compiling package interp_pkg
 # 
 # Top level modules:
 # 	--none--
-# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# End time: 21:34:44 on Nov 28,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vlog -sv ram_img.sv
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:16:20 on Nov 21,2025
-# vlog -reportprogress 300 -sv ram_img.sv 
+# Start time: 21:34:45 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv 
 # -- Compiling module ram_img
 # 
 # Top level modules:
 # 	ram_img
-# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# End time: 21:34:45 on Nov 28,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vlog -sv interp_secuencial.sv
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:16:20 on Nov 21,2025
-# vlog -reportprogress 300 -sv interp_secuencial.sv 
+# Start time: 21:34:45 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv 
 # -- Compiling package interp_secuencial_sv_unit
 # -- Importing package interp_pkg
 # -- Compiling module interp_secuencial
 # 
 # Top level modules:
 # 	interp_secuencial
-# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# End time: 21:34:45 on Nov 28,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vlog -sv interp_simd4.sv
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:16:20 on Nov 21,2025
-# vlog -reportprogress 300 -sv interp_simd4.sv 
+# Start time: 21:34:45 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv 
+# -- Compiling package Proyecto2Arqui2_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module Proyecto2Arqui2
+# 
+# Top level modules:
+# 	Proyecto2Arqui2
+# End time: 21:34:45 on Nov 28,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:34:45 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv 
 # -- Compiling package interp_simd4_sv_unit
 # -- Importing package interp_pkg
 # -- Compiling module interp_simd4
 # 
 # Top level modules:
 # 	interp_simd4
-# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# End time: 21:34:45 on Nov 28,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vlog -sv controller.sv
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:16:20 on Nov 21,2025
-# vlog -reportprogress 300 -sv controller.sv 
+# Start time: 21:34:45 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller.sv 
 # -- Compiling package controller_sv_unit
 # -- Importing package interp_pkg
 # -- Compiling module controller
 # 
 # Top level modules:
 # 	controller
-# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# End time: 21:34:45 on Nov 28,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vlog -sv controller_tb.sv
+# 
+# vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 22:16:20 on Nov 21,2025
-# vlog -reportprogress 300 -sv controller_tb.sv 
+# Start time: 21:34:45 on Nov 28,2025
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv 
 # -- Compiling package controller_tb_sv_unit
 # -- Importing package interp_pkg
 # -- Compiling module controller_tb
 # 
 # Top level modules:
 # 	controller_tb
-# End time: 22:16:20 on Nov 21,2025, Elapsed time: 0:00:00
+# End time: 21:34:45 on Nov 28,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-
-vsim controller_tb
-# vsim controller_tb 
-# Start time: 22:16:20 on Nov 21,2025
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs="+acc"  controller_tb
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L rtl_work -L work -voptargs=""+acc"" controller_tb 
+# Start time: 21:34:45 on Nov 28,2025
 # Loading sv_std.std
 # Loading work.interp_pkg
 # Loading work.controller_tb_sv_unit
@@ -125,8 +106,13 @@ vsim controller_tb
 # Loading work.interp_simd4
 # Loading work.interp_secuencial_sv_unit
 # Loading work.interp_secuencial
-add wave *
-run -all
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
 # ===== RAM OUTPUT (primeros 32 valores) =====
 # out[0] = 0
 # out[1] = 1
@@ -160,10 +146,94 @@ run -all
 # out[29] = 29
 # out[30] = 30
 # out[31] = 31
-# ===== SIMULACIÓN COMPLETA =====
-# ** Note: $stop    : controller_tb.sv(103)
-#    Time: 24855105 ns  Iteration: 0  Instance: /controller_tb
-# Break in Module controller_tb at controller_tb.sv line 103
+# ** Note: $finish    : C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv(99)
+#    Time: 25509265 ns  Iteration: 0  Instance: /controller_tb
+# 1
+# Break in Module controller_tb at C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv line 99
+quietly quit -sim
+vlog -sv "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_step_tb.sv
+# End time: 21:35:06 on Nov 28,2025, Elapsed time: 0:00:21
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:35:06 on Nov 28,2025
+# vlog -reportprogress 300 -sv "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_step_tb.sv 
+# -- Compiling package controller_step_tb_sv_unit
+# -- Importing package interp_pkg
+# -- Compiling module controller_step_tb
+# 
+# Top level modules:
+# 	controller_step_tb
+# End time: 21:35:06 on Nov 28,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.controller_step_tb
+# vsim work.controller_step_tb 
+# Start time: 21:35:06 on Nov 28,2025
+# Loading sv_std.std
+# Loading work.interp_pkg
+# Loading work.controller_step_tb_sv_unit
+# Loading work.controller_step_tb
+# Loading work.ram_img
+# Loading work.controller_sv_unit
+# Loading work.controller
+# Loading work.interp_simd4_sv_unit
+# Loading work.interp_simd4
+# Loading work.interp_secuencial_sv_unit
+# Loading work.interp_secuencial
+run 0
 
-# End time: 22:25:54 on Nov 21,2025, Elapsed time: 0:09:34
+run 100ns
+# [STEP 0] state=0 x_block=0 y_block=0 load_cnt=0 lane_wr_idx=0 done=0
+# [AFTER_INIT] state=1 x_block=0 y_block=0 load_cnt=0 lane_wr_idx=0 done=0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 1] state=1 x_block=0 y_block=0 load_cnt=0 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 2] state=2 x_block=0 y_block=0 load_cnt=0 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 3] state=1 x_block=0 y_block=0 load_cnt=1 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 4] state=2 x_block=0 y_block=0 load_cnt=1 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 5] state=1 x_block=0 y_block=0 load_cnt=2 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 6] state=2 x_block=0 y_block=0 load_cnt=2 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 7] state=1 x_block=0 y_block=0 load_cnt=3 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 8] state=2 x_block=0 y_block=0 load_cnt=3 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 9] state=1 x_block=0 y_block=0 load_cnt=4 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+force -freeze sim:/controller_step_tb/allow_tick 1 0
+run 10ns
+# [STEP 10] state=2 x_block=0 y_block=0 load_cnt=4 lane_wr_idx=0 done=0
+force -freeze sim:/controller_step_tb/allow_tick 0 0
+
+# End time: 21:55:24 on Nov 28,2025, Elapsed time: 0:20:18
 # Errors: 0, Warnings: 0

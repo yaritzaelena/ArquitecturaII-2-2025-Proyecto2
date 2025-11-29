@@ -4,11 +4,23 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "dummy_out",
+					"name" : "done",
 					"strict" : false
 				},
 				{
-					"name" : "dummy_in",
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "rst_n",
+					"strict" : false
+				},
+				{
+					"name" : "allow_tick",
+					"strict" : false
+				},
+				{
+					"name" : "start",
 					"strict" : false
 				}
 			]

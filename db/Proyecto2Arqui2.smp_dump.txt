@@ -1,0 +1,12 @@
+
+State Machine - |Proyecto2Arqui2|controller:u_ctrl|state
+Name state.S_NEXT state.S_WRITE state.S_COMPUTE state.S_LOAD_BOTTOM_DATA state.S_LOAD_BOTTOM_ADDR state.S_LOAD_TOP_DATA state.S_LOAD_TOP_ADDR state.S_IDLE state.S_DONE 
+state.S_IDLE 0 0 0 0 0 0 0 0 0 
+state.S_LOAD_TOP_ADDR 0 0 0 0 0 0 1 1 0 
+state.S_LOAD_TOP_DATA 0 0 0 0 0 1 0 1 0 
+state.S_LOAD_BOTTOM_ADDR 0 0 0 0 1 0 0 1 0 
+state.S_LOAD_BOTTOM_DATA 0 0 0 1 0 0 0 1 0 
+state.S_COMPUTE 0 0 1 0 0 0 0 1 0 
+state.S_WRITE 0 1 0 0 0 0 0 1 0 
+state.S_NEXT 1 0 0 0 0 0 0 1 0 
+state.S_DONE 0 0 0 0 0 0 0 1 1 
