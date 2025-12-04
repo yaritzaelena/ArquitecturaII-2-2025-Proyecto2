@@ -1,3 +1,6 @@
+`timescale 1ns/1ps
+import interp_pkg::*;
+
 // ===============================================================
 // controller_downscale.sv
 // Wrapper unificado para downscaling con interpolación bilineal
@@ -6,21 +9,16 @@
 //   - Modo SECUENCIAL: controller_downscale_seq
 //   - Modo SIMD (4 lanes): controller_downscale_simd4
 //
-// Selección mediante mode_simd:
-//   0 -> secuencial
-//   1 -> SIMD
+//   mode_simd:
+//     0 -> SECUENCIAL
+//     1 -> SIMD
 //
-// El wrapper:
-//   - Entrega la misma interfaz hacia el top (RAM, start, done, counters)
-//   - Usa allow_tick dividido para congelar el modo no seleccionado
-//   - Multiplexa las señales de RAM y los contadores
+// La escala global se fija con SCALE_NUM/SCALE_DEN y se mapea a:
+//   - 1/1  -> 1.0   (scale_mode = 2'b00)
+//   - 3/4  -> 0.75  (scale_mode = 2'b01)
+//   - 1/2  -> 0.5   (scale_mode = 2'b10)
 //
-// Nota: la escala se sigue fijando con SCALE_NUM/SCALE_DEN (parámetros).
-// Más adelante se puede pasar a registros configurables vía JTAG.
 // ===============================================================
-
-`timescale 1ns/1ps
-import interp_pkg::*;
 
 module controller_downscale #(
     parameter int FRAC       = FRAC_BITS,
@@ -62,9 +60,17 @@ module controller_downscale #(
 );
 
     // ===========================================================
+    // Mapear SCALE_NUM/SCALE_DEN → scale_mode del secuencial
+    // ===========================================================
+    localparam logic [1:0] SCALE_MODE_SEQ =
+        (SCALE_NUM == 1 && SCALE_DEN == 1) ? 2'b00 : // 1.0
+        (SCALE_NUM == 3 && SCALE_DEN == 4) ? 2'b01 : // 0.75
+        (SCALE_NUM == 1 && SCALE_DEN == 2) ? 2'b10 : // 0.5
+                                             2'b00;  // default 1.0
+
+    // ===========================================================
     // Señales internas para cada controlador
     // ===========================================================
-    // allow_tick separados para congelar el modo no seleccionado
     logic allow_tick_seq;
     logic allow_tick_simd;
 
@@ -93,6 +99,7 @@ module controller_downscale #(
 
     // ===========================================================
     // Instancia del controlador SECUENCIAL
+    // (tu versión FINAL con scale_mode)
     // ===========================================================
     controller_downscale_seq #(
         .FRAC      (FRAC),
@@ -105,6 +112,8 @@ module controller_downscale #(
         .allow_tick  (allow_tick_seq),
         .start       (start),
         .done        (done_seq),
+
+        .scale_mode  (SCALE_MODE_SEQ),
 
         .in_we       (in_we_seq),
         .in_addr     (in_addr_seq),
@@ -121,7 +130,7 @@ module controller_downscale #(
     );
 
     // ===========================================================
-    // Instancia del controlador SIMD
+    // Instancia del controlador SIMD4 (usa SCALE_NUM/DEN directo)
     // ===========================================================
     controller_downscale_simd4 #(
         .FRAC      (FRAC),
@@ -189,3 +198,4 @@ module controller_downscale #(
     end
 
 endmodule
+

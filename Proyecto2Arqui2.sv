@@ -1,21 +1,6 @@
 `timescale 1ns/1ps
 import interp_pkg::*;
 
-// Top del proyecto con soporte para stepping funcional y downscaling.
-// Se instancian:
-//   - step_controller       : genera allow_tick según cmd_step/cmd_continue/cmd_halt
-//   - controller_downscale  : controla RAM de entrada/salida y hace downscaling
-//                             con modo SECUENCIAL o SIMD4 según mode_simd
-//   - ram_img (in/out)      : memorias internas (imagen origen / imagen destino)
-//
-// Para la FPGA, puedes mapear:
-//   clk         -> CLOCK_50
-//   rst_n       -> KEY[0] (activo en 0)
-//   start       -> pulsador / bit desde JTAG
-//   cmd_*       -> bits desde JTAG o switches
-//   mode_simd   -> bit desde JTAG o switch (0: secuencial, 1: SIMD)
-//   done/ halted-> LEDs
-
 module Proyecto2Arqui2 #(
     parameter int LANES      = 4,
     parameter int FRAC       = FRAC_BITS,
@@ -23,9 +8,9 @@ module Proyecto2Arqui2 #(
     parameter int IMG_H      = 512,
     parameter int ADDR_W     = 19,
 
-    // Factor de escala global del top:
+    // Factor de escala global:
     //   escala = SCALE_NUM / SCALE_DEN
-    //   Ejemplo: 1/2 = downscale a 0.5 (512x512 -> 256x256)
+    //   Ej: 1/2 = 0.5 (512x512 -> 256x256)
     parameter int SCALE_NUM  = 1,
     parameter int SCALE_DEN  = 2
 )(
@@ -36,12 +21,12 @@ module Proyecto2Arqui2 #(
     // Control de operación
     input  logic start,         // pulso de inicio de procesamiento
 
-    // Comandos de stepping (desde PC/JTAG/switches)
+    // Comandos de stepping
     input  logic cmd_step,      // un ciclo de avance
     input  logic cmd_continue,  // ejecución continua
     input  logic cmd_halt,      // pausa en stepping
 
-    // Selección de modo de operación
+    // Selección de modo
     input  logic mode_simd,     // 0 = secuencial, 1 = SIMD
 
     // Estado hacia el exterior
@@ -50,7 +35,7 @@ module Proyecto2Arqui2 #(
 );
 
     // --------------------------------------------------
-    // Señal interna allow_tick (enable de un ciclo)
+    // Señal interna allow_tick
     // --------------------------------------------------
     logic allow_tick;
 
@@ -65,15 +50,15 @@ module Proyecto2Arqui2 #(
     logic              out_we;
     logic [ADDR_W-1:0] out_addr;
     logic [7:0]        out_wdata;
-    logic [7:0]        out_rdata;  // si se quisiera leer la salida desde lógica adicional
+    logic [7:0]        out_rdata;
 
-    // Performance counters del controlador
+    // Performance counters
     logic [31:0] cycle_count_ctrl;
     logic [31:0] rd_count_ctrl;
     logic [31:0] wr_count_ctrl;
 
     // --------------------------------------------------
-    // Instancia de step_controller
+    // step_controller
     // --------------------------------------------------
     step_controller u_step_ctrl (
         .clk         (clk),
@@ -88,7 +73,7 @@ module Proyecto2Arqui2 #(
     );
 
     // --------------------------------------------------
-    // RAM de entrada (imagen original)
+    // RAM entrada
     // --------------------------------------------------
     ram_img #(
         .ADDR_WIDTH(ADDR_W),
@@ -102,7 +87,7 @@ module Proyecto2Arqui2 #(
     );
 
     // --------------------------------------------------
-    // RAM de salida (imagen escalada / resultado)
+    // RAM salida
     // --------------------------------------------------
     ram_img #(
         .ADDR_WIDTH(ADDR_W),
@@ -116,7 +101,7 @@ module Proyecto2Arqui2 #(
     );
 
     // --------------------------------------------------
-    // Controlador unificado de downscaling (SEQ / SIMD)
+    // Controlador unificado SEQ / SIMD
     // --------------------------------------------------
     controller_downscale #(
         .FRAC      (FRAC),
@@ -150,10 +135,4 @@ module Proyecto2Arqui2 #(
         .wr_count    (wr_count_ctrl)
     );
 
-    // Si más adelante quieres exponer los contadores a JTAG/PC,
-    // puedes agregarlos como outputs del top o mapearlos a registros.
-
 endmodule
-
-
-
