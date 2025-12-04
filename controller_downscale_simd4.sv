@@ -206,11 +206,15 @@ module controller_downscale_simd4 #(
             end
 
             S_NEXT_GROUP: begin
-                if ((x_base >= OUT_W) && (y_out >= OUT_H-1))
+                // Si acabamos de procesar el ÚLTIMO grupo de la ÚLTIMA fila,
+                // pasamos a S_DONE. En cualquier otro caso, volvemos a S_SETUP_GROUP
+                // para procesar el siguiente grupo.
+                if ((x_base + LANES >= OUT_W) && (y_out == OUT_H-1))
                     next_state = S_DONE;
                 else
                     next_state = S_SETUP_GROUP;
             end
+
 
             S_DONE: begin
                 if (!start)
@@ -401,23 +405,32 @@ module controller_downscale_simd4 #(
                     // ---------------------------------------------------
                     // Avanzar al siguiente grupo de píxeles
                     // ---------------------------------------------------
-                    S_NEXT_GROUP: begin
-                        if (x_base + LANES >= OUT_W) begin
-                            // Siguiente fila
-                            x_base <= 0;
-                            y_out  <= y_out + 1;
+						 S_NEXT_GROUP: begin
+							  if (x_base + LANES >= OUT_W) begin
+									// Ya no hay más grupos en esta fila
+									if (y_out != OUT_H-1) begin
+										 // Pasar a la siguiente fila
+										 x_base <= 0;
+										 y_out  <= y_out + 1;
 
-                            // Nueva coordenada Y fuente para todos los lanes
-                            y_src_idx = y_out + 1;
-                            for (i = 0; i < LANES; i = i + 1) begin
-                                src_y_q[i] <= (y_src_idx * SCALE_DEN * ONE_Q) / SCALE_NUM;
-                            end
-                        end
-                        else begin
-                            // Siguiente grupo horizontal
-                            x_base <= x_base + LANES;
-                        end
-                    end
+										 // Nueva coordenada Y fuente para todos los lanes
+										 y_src_idx = y_out + 1;
+										 for (i = 0; i < LANES; i = i + 1) begin
+											  src_y_q[i] <= (y_src_idx * SCALE_DEN * ONE_Q) / SCALE_NUM;
+										 end
+									end
+									else begin
+										 // Última fila -> NO tocar x_base ni y_out aquí.
+										 // La lógica combinacional detecta esta condición
+										 // y en el próximo ciclo irá a S_DONE.
+									end
+							  end
+							  else begin
+									// Siguiente grupo horizontal en la misma fila
+									x_base <= x_base + LANES;
+							  end
+						 end
+
 
                     default: begin
                         // nada adicional
