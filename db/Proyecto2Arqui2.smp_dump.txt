@@ -1,12 +1,30 @@
 
-State Machine - |Proyecto2Arqui2|controller:u_ctrl|state
-Name state.S_NEXT state.S_WRITE state.S_COMPUTE state.S_LOAD_BOTTOM_DATA state.S_LOAD_BOTTOM_ADDR state.S_LOAD_TOP_DATA state.S_LOAD_TOP_ADDR state.S_IDLE state.S_DONE 
+State Machine - |Proyecto2Arqui2|controller_downscale:u_ctrl|controller_downscale_simd4:u_simd|state
+Name state.S_NEXT_GROUP state.S_WRITE_GROUP state.S_INTERP_WAIT state.S_INTERP_START state.S_READ_NEIGH_DATA state.S_READ_NEIGH_ADDR state.S_SETUP_GROUP state.S_IDLE state.S_DONE 
 state.S_IDLE 0 0 0 0 0 0 0 0 0 
-state.S_LOAD_TOP_ADDR 0 0 0 0 0 0 1 1 0 
-state.S_LOAD_TOP_DATA 0 0 0 0 0 1 0 1 0 
-state.S_LOAD_BOTTOM_ADDR 0 0 0 0 1 0 0 1 0 
-state.S_LOAD_BOTTOM_DATA 0 0 0 1 0 0 0 1 0 
-state.S_COMPUTE 0 0 1 0 0 0 0 1 0 
-state.S_WRITE 0 1 0 0 0 0 0 1 0 
-state.S_NEXT 1 0 0 0 0 0 0 1 0 
+state.S_SETUP_GROUP 0 0 0 0 0 0 1 1 0 
+state.S_READ_NEIGH_ADDR 0 0 0 0 0 1 0 1 0 
+state.S_READ_NEIGH_DATA 0 0 0 0 1 0 0 1 0 
+state.S_INTERP_START 0 0 0 1 0 0 0 1 0 
+state.S_INTERP_WAIT 0 0 1 0 0 0 0 1 0 
+state.S_WRITE_GROUP 0 1 0 0 0 0 0 1 0 
+state.S_NEXT_GROUP 1 0 0 0 0 0 0 1 0 
 state.S_DONE 0 0 0 0 0 0 0 1 1 
+
+State Machine - |Proyecto2Arqui2|controller_downscale:u_ctrl|controller_downscale_seq:u_seq|state
+Name state.S_DONE state.S_NEXT state.S_WRITE state.S_INTERP_WAIT state.S_INTERP_START state.S_RD_P11_D state.S_RD_P11_A state.S_RD_P01_D state.S_RD_P01_A state.S_RD_P10_D state.S_RD_P10_A state.S_RD_P00_D state.S_RD_P00_A state.S_SETUP state.S_IDLE 
+state.S_IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.S_SETUP 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.S_RD_P00_A 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.S_RD_P00_D 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.S_RD_P10_A 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.S_RD_P10_D 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.S_RD_P01_A 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.S_RD_P01_D 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.S_RD_P11_A 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.S_RD_P11_D 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.S_INTERP_START 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.S_INTERP_WAIT 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.S_WRITE 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.S_NEXT 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.S_DONE 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 

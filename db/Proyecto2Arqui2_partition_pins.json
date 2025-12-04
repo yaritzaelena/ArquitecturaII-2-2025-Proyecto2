@@ -12,6 +12,14 @@
 					"strict" : false
 				},
 				{
+					"name" : "mode_simd",
+					"strict" : false
+				},
+				{
+					"name" : "start",
+					"strict" : false
+				},
+				{
 					"name" : "clk",
 					"strict" : false
 				},
@@ -29,10 +37,6 @@
 				},
 				{
 					"name" : "cmd_step",
-					"strict" : false
-				},
-				{
-					"name" : "start",
 					"strict" : false
 				}
 			]

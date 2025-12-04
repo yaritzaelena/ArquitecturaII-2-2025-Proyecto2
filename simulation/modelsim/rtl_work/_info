@@ -8,49 +8,151 @@ z2
 !i10f 100
 cModel Technology
 Z0 dC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/simulation/modelsim
-vcontroller
+vcontroller_downscale
 Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
 Z2 DXx4 work 10 interp_pkg 0 22 k<;b0601IGizNW0[@VQhe3
-DXx4 work 18 controller_sv_unit 0 22 7dgoB0KV0Ac5A:2PF3zza3
+DXx4 work 28 controller_downscale_sv_unit 0 22 lBkd3J?Wm;LL_EY[6?Scm1
 Z3 VDg1SIo80bB@j0V0VzS_@n1
 r1
 !s85 0
 31
 !i10b 1
-!s100 DTT:[a:WaDj7lCc9oVme^3
-I=><5TGf8@OA23VdSJW65:3
-!s105 controller_sv_unit
+!s100 TUGR;`MiFT7<Jg<HfbMIG2
+InaTolIR<84eHZdnPJ=EJC2
+!s105 controller_downscale_sv_unit
 S1
 R0
-Z4 w1764383953
-Z5 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller.sv
-Z6 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller.sv
-L0 10
+Z4 w1764842164
+Z5 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale.sv
+Z6 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale.sv
+L0 25
 Z7 OV;L;10.5b;63
-Z8 !s108 1764815890.000000
-Z9 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller.sv|
-Z10 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller.sv|
+Z8 !s108 1764842244.000000
+Z9 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale.sv|
+Z10 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale.sv|
 !i113 1
 Z11 o-sv -work work
 Z12 !s92 -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2
 Z13 tCvgOpt 0
-Xcontroller_sv_unit
+vcontroller_downscale_seq
 R1
 R2
-V7dgoB0KV0Ac5A:2PF3zza3
+DXx4 work 32 controller_downscale_seq_sv_unit 0 22 Z3mJA04la1aih:LGL^1]73
+R3
 r1
 !s85 0
 31
 !i10b 1
-!s100 C1FJaKY53>mlnal89P@La3
-I7dgoB0KV0Ac5A:2PF3zza3
+!s100 XRZ<j^7J6VE@i366>;>FP3
+I@V0?5Fel>8@kkCI>Qjl`W1
+!s105 controller_downscale_seq_sv_unit
+S1
+R0
+Z14 w1764837702
+Z15 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_seq.sv
+Z16 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_seq.sv
+L0 22
+R7
+R8
+Z17 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_seq.sv|
+Z18 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_seq.sv|
+!i113 1
+R11
+R12
+R13
+Xcontroller_downscale_seq_sv_unit
+R1
+R2
+VZ3mJA04la1aih:LGL^1]73
+r1
+!s85 0
+31
+!i10b 1
+!s100 MPcL7?iI2Gm4d_2aHV]NV2
+IZ3mJA04la1aih:LGL^1]73
+!i103 1
+S1
+R0
+R14
+R15
+R16
+Z19 L0 20
+R7
+R8
+R17
+R18
+!i113 1
+R11
+R12
+R13
+vcontroller_downscale_simd4
+R1
+R2
+DXx4 work 34 controller_downscale_simd4_sv_unit 0 22 UR@WNSl@CIDBR?h5OIzW]1
+R3
+r1
+!s85 0
+31
+!i10b 1
+!s100 4NdEPEXXm7T`C714m=M9J0
+IPWZH`[=zznnC^BzM[6l_d0
+!s105 controller_downscale_simd4_sv_unit
+S1
+R0
+Z20 w1764829738
+Z21 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_simd4.sv
+Z22 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_simd4.sv
+R19
+R7
+R8
+Z23 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_simd4.sv|
+Z24 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_simd4.sv|
+!i113 1
+R11
+R12
+R13
+Xcontroller_downscale_simd4_sv_unit
+R1
+R2
+VUR@WNSl@CIDBR?h5OIzW]1
+r1
+!s85 0
+31
+!i10b 1
+!s100 1=68gGNM<TQ]Zf1FHd?Bz0
+IUR@WNSl@CIDBR?h5OIzW]1
+!i103 1
+S1
+R0
+R20
+R21
+R22
+L0 18
+R7
+R8
+R23
+R24
+!i113 1
+R11
+R12
+R13
+Xcontroller_downscale_sv_unit
+R1
+R2
+VlBkd3J?Wm;LL_EY[6?Scm1
+r1
+!s85 0
+31
+!i10b 1
+!s100 4c9[d[aTHS9]COoa]5oL80
+IlBkd3J?Wm;LL_EY[6?Scm1
 !i103 1
 S1
 R0
 R4
 R5
 R6
-L0 8
+L0 23
 R7
 R8
 R9
@@ -59,67 +161,16 @@ R10
 R11
 R12
 R13
-vcontroller_tb
-R1
-R2
-DXx4 work 21 controller_tb_sv_unit 0 22 RLT>:4d1R6cd_WZZ]Kn[L3
-R3
-r1
-!s85 0
-31
-!i10b 1
-!s100 I4_eV;Q^jY<e<YW3HnOhH2
-I73BC6ejc:S>U`g7ZS@Ne>0
-!s105 controller_tb_sv_unit
-S1
-R0
-Z14 w1764812391
-Z15 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv
-Z16 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv
-Z17 L0 14
-R7
-R8
-Z18 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv|
-Z19 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_tb.sv|
-!i113 1
-R11
-R12
-R13
-Xcontroller_tb_sv_unit
-R1
-R2
-VRLT>:4d1R6cd_WZZ]Kn[L3
-r1
-!s85 0
-31
-!i10b 1
-!s100 O787]USQPJHQSQ0KlzcoK2
-IRLT>:4d1R6cd_WZZ]Kn[L3
-!i103 1
-S1
-R0
-R14
-R15
-R16
-L0 2
-R7
-R8
-R18
-R19
-!i113 1
-R11
-R12
-R13
 Xinterp_pkg
 R1
-Z20 !s110 1764815890
+Z25 !s110 1764842244
 !i10b 1
 !s100 D[<g=60zV6^E]I]<ZH]Y40
 Ik<;b0601IGizNW0[@VQhe3
 Vk<;b0601IGizNW0[@VQhe3
 S1
 R0
-Z21 w1763777700
+Z26 w1763777700
 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv
 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv
 L0 4
@@ -148,14 +199,14 @@ I9gYQTTcM:8EI`fCBEgk?i0
 !s105 interp_secuencial_sv_unit
 S1
 R0
-Z22 w1763612730
-Z23 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
-Z24 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
+Z27 w1763612730
+Z28 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
+Z29 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv
 L0 8
 R7
 R8
-Z25 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv|
-Z26 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv|
+Z30 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv|
+Z31 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv|
 !i113 1
 R11
 R12
@@ -173,14 +224,14 @@ ImR66N8O@cc>g_JIfOiDFT0
 !i103 1
 S1
 R0
-R22
-R23
-R24
+R27
+R28
+R29
 L0 6
 R7
 R8
-R25
-R26
+R30
+R31
 !i113 1
 R11
 R12
@@ -199,14 +250,14 @@ ICkgnSEYPDl`cVNnk4ENnE0
 !s105 interp_simd4_sv_unit
 S1
 R0
-Z27 w1763615988
-Z28 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
-Z29 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
+Z32 w1763615988
+Z33 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
+Z34 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv
 L0 7
 R7
 R8
-Z30 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv|
-Z31 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv|
+Z35 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv|
+Z36 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv|
 !i113 1
 R11
 R12
@@ -224,62 +275,10 @@ IBK@AoYFC:<Y;TMn884G<?3
 !i103 1
 S1
 R0
-R27
-R28
-R29
-L0 5
-R7
-R8
-R30
-R31
-!i113 1
-R11
-R12
-R13
-vProyecto2Arqui2
-R1
-R2
-DXx4 work 23 Proyecto2Arqui2_sv_unit 0 22 RD`B<O3m8@Q[hoQ[^QV>C1
-R3
-r1
-!s85 0
-31
-!i10b 1
-!s100 465Hob8zo:;_UZAo1hczX1
-IgLhbOnC]SY9;a:c7QR4^T3
-!s105 Proyecto2Arqui2_sv_unit
-S1
-R0
-Z32 w1764811196
-Z33 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
-Z34 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
-L0 17
-R7
-R8
-Z35 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
-Z36 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
-!i113 1
-R11
-R12
-R13
-n@proyecto2@arqui2
-XProyecto2Arqui2_sv_unit
-R1
-R2
-VRD`B<O3m8@Q[hoQ[^QV>C1
-r1
-!s85 0
-31
-!i10b 1
-!s100 jCk7gzYk04n;WCIK5cgK23
-IRD`B<O3m8@Q[hoQ[^QV>C1
-!i103 1
-S1
-R0
 R32
 R33
 R34
-L0 2
+L0 5
 R7
 R8
 R35
@@ -288,10 +287,62 @@ R36
 R11
 R12
 R13
+vProyecto2Arqui2
+R1
+R2
+DXx4 work 23 Proyecto2Arqui2_sv_unit 0 22 HE4P1:fzUl537>`eEPFhd3
+R3
+r1
+!s85 0
+31
+!i10b 1
+!s100 UK2HkfBcGZR6_3]bEhmzl2
+I0zMCP5KNR;1Z?_O7jUnDk2
+!s105 Proyecto2Arqui2_sv_unit
+S1
+R0
+Z37 w1764842166
+Z38 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
+Z39 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv
+L0 19
+R7
+R8
+Z40 !s107 C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
+Z41 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2|C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv|
+!i113 1
+R11
+R12
+R13
+n@proyecto2@arqui2
+XProyecto2Arqui2_sv_unit
+R1
+R2
+VHE4P1:fzUl537>`eEPFhd3
+r1
+!s85 0
+31
+!i10b 1
+!s100 1bS9J4]gmjJB]ZD0jG>B30
+IHE4P1:fzUl537>`eEPFhd3
+!i103 1
+S1
+R0
+R37
+R38
+R39
+L0 2
+R7
+R8
+R40
+R41
+!i113 1
+R11
+R12
+R13
 n@proyecto2@arqui2_sv_unit
 vram_img
 R1
-R20
+R25
 !i10b 1
 !s100 O@8efoX_<fL7Zf=jAcMCF1
 I>[E`DL=`zf5aYl2[^RkE`1
@@ -299,7 +350,7 @@ R3
 !s105 ram_img_sv_unit
 S1
 R0
-R21
+R26
 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv
 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv
 L0 6
@@ -316,7 +367,7 @@ R12
 R13
 vstep_controller
 R1
-R20
+R25
 !i10b 1
 !s100 jZmofC7E6ZE;doG9hEYJT0
 IU<iMn2hfj8>dkz0Oz;?m92
@@ -327,7 +378,7 @@ R0
 w1764383843
 8C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/step_controller.sv
 FC:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/step_controller.sv
-R17
+L0 14
 R7
 r1
 !s85 0
