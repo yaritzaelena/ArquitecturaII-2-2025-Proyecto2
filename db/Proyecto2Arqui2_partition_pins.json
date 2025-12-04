@@ -8,6 +8,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "halted",
+					"strict" : false
+				},
+				{
 					"name" : "clk",
 					"strict" : false
 				},
@@ -16,7 +20,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "allow_tick",
+					"name" : "cmd_halt",
+					"strict" : false
+				},
+				{
+					"name" : "cmd_continue",
+					"strict" : false
+				},
+				{
+					"name" : "cmd_step",
 					"strict" : false
 				},
 				{

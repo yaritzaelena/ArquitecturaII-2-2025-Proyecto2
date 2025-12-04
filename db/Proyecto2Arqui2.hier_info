@@ -1,9 +1,27 @@
 |Proyecto2Arqui2
-clk => clk.IN3
-rst_n => rst_n.IN1
+clk => clk.IN4
+rst_n => rst_n.IN2
 start => start.IN1
-allow_tick => allow_tick.IN1
+cmd_step => cmd_step.IN1
+cmd_continue => cmd_continue.IN1
+cmd_halt => cmd_halt.IN1
 done << controller:u_ctrl.done
+halted << step_controller:u_step_ctrl.halted
+
+
+|Proyecto2Arqui2|step_controller:u_step_ctrl
+clk => allow_tick~reg0.CLK
+clk => halted~reg0.CLK
+rst_n => allow_tick~reg0.ACLR
+rst_n => halted~reg0.PRESET
+cmd_step => halted.OUTPUTSELECT
+cmd_step => allow_tick.OUTPUTSELECT
+cmd_continue => halted.OUTPUTSELECT
+cmd_continue => allow_tick.OUTPUTSELECT
+cmd_halt => halted.OUTPUTSELECT
+cmd_halt => allow_tick.OUTPUTSELECT
+allow_tick <= allow_tick~reg0.DB_MAX_OUTPUT_PORT_TYPE
+halted <= halted~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |Proyecto2Arqui2|ram_img:ram_in
