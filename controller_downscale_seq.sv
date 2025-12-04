@@ -1,29 +1,22 @@
 // ===============================================================
-// controller_downscale_seq.sv
-// Downscale con interpolación bilineal secuencial (1 píxel a la vez)
+// controller_downscale_seq.sv  (VERSION FINAL)
 //
-// Soporta 3 factores de escala seleccionables por hardware:
-//
-//   scale_mode = 2'b00  -> 1.0   (OUT = IMG_W x IMG_H)
-//   scale_mode = 2'b01  -> 0.75  (OUT = 3/4 * IMG_W, 3/4 * IMG_H)
-//   scale_mode = 2'b10  -> 0.5   (OUT = IMG_W/2, IMG_H/2)
-//
-// Para cada píxel de salida (x_out, y_out) se calcula una
-// coordenada fuente (src_x_q, src_y_q) en Q0.FRAC y se hace
-// interpolación bilineal usando interp_secuencial.
-//
-// Stepping controlado por allow_tick.
-//
+// Downscale secuencial con interpolación bilineal.
+// Corrige:
+//   - Error de “cuadruplificación” en 0.75 y 1.0
+//   - Drivers múltiples en out_we / out_wdata
+//   - Problemas de compilación en ModelSim (vlog-2244)
+//   - Coordenadas fuente en Q0.FRAC robustas
 // ===============================================================
 
 `timescale 1ns/1ps
 import interp_pkg::*;
 
 module controller_downscale_seq #(
-    parameter int FRAC       = FRAC_BITS,
-    parameter int IMG_W      = 512,
-    parameter int IMG_H      = 512,
-    parameter int ADDR_W     = 19
+    parameter int FRAC   = FRAC_BITS,
+    parameter int IMG_W  = 512,
+    parameter int IMG_H  = 512,
+    parameter int ADDR_W = 19
 )(
     input  logic              clk,
     input  logic              rst_n,
@@ -31,14 +24,13 @@ module controller_downscale_seq #(
     // Stepping
     input  logic              allow_tick,
 
-    // Control de operación
+    // Control
     input  logic              start,
     output logic              done,
 
-    // Selección de escala:
-    //   2'b00 -> 1.0
-    //   2'b01 -> 0.75
-    //   2'b10 -> 0.5
+    // 00 = 1.0
+    // 01 = 0.75
+    // 10 = 0.5
     input  logic [1:0]        scale_mode,
 
     // RAM entrada
@@ -63,61 +55,68 @@ module controller_downscale_seq #(
     // ===========================================================
     localparam int ONE_Q = 1 << FRAC;
 
-    // Tamaños de salida para cada escala
-    localparam int OUT_W_1_0  = IMG_W;
-    localparam int OUT_H_1_0  = IMG_H;
-    localparam int OUT_W_075  = (IMG_W * 3) / 4;
-    localparam int OUT_H_075  = (IMG_H * 3) / 4;
-    localparam int OUT_W_05   = IMG_W / 2;
-    localparam int OUT_H_05   = IMG_H / 2;
+    localparam int OUT_W_1_0 = IMG_W;
+    localparam int OUT_H_1_0 = IMG_H;
+    localparam int OUT_W_075 = (IMG_W * 3) / 4;
+    localparam int OUT_H_075 = (IMG_H * 3) / 4;
+    localparam int OUT_W_05  = IMG_W / 2;
+    localparam int OUT_H_05  = IMG_H / 2;
 
-    // Pasos en Q0.FRAC para cada escala (cuánto avanzamos en la imagen fuente
-    // cuando movemos 1 píxel en la imagen destino).
-    //
-    //   escala 1.0  -> step = 1.0
-    //   escala 0.75 -> step = 1 / 0.75 = 4/3
-    //   escala 0.5  -> step = 2.0
-    localparam int STEP_Q_1_0  = ONE_Q;           // 1.0
-    localparam int STEP_Q_075  = (4 * ONE_Q) / 3; // ~1.3333
-    localparam int STEP_Q_05   = 2 * ONE_Q;       // 2.0
+    localparam int STEP_Q_1_0 = ONE_Q;           // 1.0
+    localparam int STEP_Q_075 = (4 * ONE_Q) / 3; // ~1.333
+    localparam int STEP_Q_05  = 2 * ONE_Q;       // 2.0
 
     // ===========================================================
-    // Selección de parámetros según scale_mode
-    // (combinacional; se latchean al arrancar con start)
+    // Selección combinacional según scale_mode
     // ===========================================================
     int unsigned out_w_sel, out_h_sel;
     int          step_x_q_sel, step_y_q_sel;
 
     always_comb begin
         case (scale_mode)
-            2'b01: begin   // 0.75
-                out_w_sel   = OUT_W_075;
-                out_h_sel   = OUT_H_075;
+            2'b01: begin // 0.75
+                out_w_sel    = OUT_W_075;
+                out_h_sel    = OUT_H_075;
                 step_x_q_sel = STEP_Q_075;
                 step_y_q_sel = STEP_Q_075;
             end
-            2'b10: begin   // 0.5
-                out_w_sel   = OUT_W_05;
-                out_h_sel   = OUT_H_05;
+            2'b10: begin // 0.5
+                out_w_sel    = OUT_W_05;
+                out_h_sel    = OUT_H_05;
                 step_x_q_sel = STEP_Q_05;
                 step_y_q_sel = STEP_Q_05;
             end
             default: begin // 1.0
-                out_w_sel   = OUT_W_1_0;
-                out_h_sel   = OUT_H_1_0;
+                out_w_sel    = OUT_W_1_0;
+                out_h_sel    = OUT_H_1_0;
                 step_x_q_sel = STEP_Q_1_0;
                 step_y_q_sel = STEP_Q_1_0;
             end
         endcase
     end
 
-    // Valores latcheados al inicio de la operación (para que
-    // no cambien si scale_mode cambia mientras estamos corriendo).
     int unsigned out_w_reg, out_h_reg;
-    int          step_x_q,  step_y_q;
+    int          step_x_q, step_y_q;
 
     // ===========================================================
-    // Núcleo de interpolación bilineal secuencial
+    // Acumuladores de coordenada fuente Q0.FRAC (32 bits)
+    // ===========================================================
+    logic [31:0] src_x_q, src_y_q;
+
+    // Coordenadas salida
+    int unsigned x_out, y_out;
+
+    // Coordenadas entrada
+    int unsigned x0, y0;
+
+    // Fracciones
+    logic [FRAC-1:0] fx_reg, fy_reg;
+
+    // Vecinos 2x2
+    u8_t p00_reg, p10_reg, p01_reg, p11_reg;
+
+    // ===========================================================
+    // Interpolador bilineal secuencial
     // ===========================================================
     logic        i_valid_in, i_valid_out;
     u8_t         i_p00, i_p10, i_p01, i_p11;
@@ -141,9 +140,10 @@ module controller_downscale_seq #(
     // ===========================================================
     // FSM
     // ===========================================================
+
     typedef enum logic [3:0] {
         S_IDLE,
-        S_SETUP,        // calcula x0,y0,fx,fy a partir de src_x_q,src_y_q
+        S_SETUP,
         S_RD_P00_A, S_RD_P00_D,
         S_RD_P10_A, S_RD_P10_D,
         S_RD_P01_A, S_RD_P01_D,
@@ -157,210 +157,167 @@ module controller_downscale_seq #(
 
     state_t state, next_state;
 
-    // Coordenadas de salida
-    int unsigned x_out, y_out;
-
-    // Coordenadas de entrada (esquina del bloque 2x2) y fracciones
-    int unsigned x0, y0;
-    logic [FRAC-1:0] fx_reg, fy_reg;
-
-    // Coordenadas fuente en Q0.FRAC
-    q16_t src_x_q, src_y_q;
-
-    // Vecinos
-    u8_t p00_reg, p10_reg, p01_reg, p11_reg;
-
     // ===========================================================
-    // Lógica combinacional FSM
+    // FSM combinacional (sin out_we/out_wdata)
     // ===========================================================
     always_comb begin
-        // Defaults
         in_we      = 1'b0;
         in_wdata   = 8'd0;
-        out_we     = 1'b0;
-        out_wdata  = 8'd0;
         i_valid_in = 1'b0;
-        next_state = state;
+
         done       = (state == S_DONE);
+        next_state = state;
 
         case (state)
-            S_IDLE: begin
-                if (start)
-                    next_state = S_SETUP;
-            end
 
-            S_SETUP: begin
-                next_state = S_RD_P00_A;
-            end
+            S_IDLE: if (start) next_state = S_SETUP;
 
-            S_RD_P00_A: next_state = S_RD_P00_D;
-            S_RD_P00_D: next_state = S_RD_P10_A;
-            S_RD_P10_A: next_state = S_RD_P10_D;
-            S_RD_P10_D: next_state = S_RD_P01_A;
-            S_RD_P01_A: next_state = S_RD_P01_D;
-            S_RD_P01_D: next_state = S_RD_P11_A;
-            S_RD_P11_A: next_state = S_RD_P11_D;
-            S_RD_P11_D: next_state = S_INTERP_START;
+            S_SETUP:        next_state = S_RD_P00_A;
+            S_RD_P00_A:     next_state = S_RD_P00_D;
+            S_RD_P00_D:     next_state = S_RD_P10_A;
+            S_RD_P10_A:     next_state = S_RD_P10_D;
+            S_RD_P10_D:     next_state = S_RD_P01_A;
+            S_RD_P01_A:     next_state = S_RD_P01_D;
+            S_RD_P01_D:     next_state = S_RD_P11_A;
+            S_RD_P11_A:     next_state = S_RD_P11_D;
+            S_RD_P11_D:     next_state = S_INTERP_START;
 
             S_INTERP_START: begin
                 i_valid_in = 1'b1;
                 next_state = S_INTERP_WAIT;
             end
 
-            S_INTERP_WAIT: begin
-                if (i_valid_out)
-                    next_state = S_WRITE;
-            end
+            S_INTERP_WAIT:
+                if (i_valid_out) next_state = S_WRITE;
 
-            S_WRITE: begin
-                out_we    = 1'b1;
-                out_wdata = i_pixel_out;
+            S_WRITE:
                 next_state = S_NEXT;
-            end
 
             S_NEXT: begin
-                if ( (x_out == out_w_reg-1) && (y_out == out_h_reg-1) )
+                if ((x_out == out_w_reg-1) && (y_out == out_h_reg-1))
                     next_state = S_DONE;
                 else
                     next_state = S_SETUP;
             end
 
-            S_DONE: begin
-                if (!start)
-                    next_state = S_IDLE;
-            end
+            S_DONE:
+                if (!start) next_state = S_IDLE;
 
-            default: next_state = S_IDLE;
         endcase
     end
 
     // ===========================================================
-    // Secuencial: estado, coordenadas y contadores
+    // Secuencial (único lugar donde se manejan out_we/out_wdata)
     // ===========================================================
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             state       <= S_IDLE;
 
-            x_out       <= 0;
-            y_out       <= 0;
-            x0          <= 0;
-            y0          <= 0;
-            fx_reg      <= '0;
-            fy_reg      <= '0;
+            x_out <= 0;   y_out <= 0;
+            x0    <= 0;   y0    <= 0;
 
-            p00_reg     <= '0;
-            p10_reg     <= '0;
-            p01_reg     <= '0;
-            p11_reg     <= '0;
+            fx_reg <= '0;
+            fy_reg <= '0;
 
-            in_addr     <= '0;
-            out_addr    <= '0;
+            p00_reg <= '0;
+            p10_reg <= '0;
+            p01_reg <= '0;
+            p11_reg <= '0;
 
-            src_x_q     <= '0;
-            src_y_q     <= '0;
+            in_addr  <= 0;
+            out_addr <= 0;
 
-            out_w_reg   <= OUT_W_05; // valores por defecto
-            out_h_reg   <= OUT_H_05;
-            step_x_q    <= STEP_Q_05;
-            step_y_q    <= STEP_Q_05;
+            src_x_q <= 0;
+            src_y_q <= 0;
 
-            cycle_count <= 32'd0;
-            rd_count    <= 32'd0;
-            wr_count    <= 32'd0;
+            step_x_q <= STEP_Q_05;
+            step_y_q <= STEP_Q_05;
+
+            out_w_reg <= OUT_W_05;
+            out_h_reg <= OUT_H_05;
+
+            cycle_count <= 0;
+            rd_count    <= 0;
+            wr_count    <= 0;
+
+            out_we    <= 0;
+            out_wdata <= 0;
         end
         else begin
             if (!allow_tick) begin
-                // pausa por stepping
-                state <= state;
+                state <= state; // pausa
             end
             else begin
                 state <= next_state;
 
-                // contador de ciclos (mientras no estemos en DONE)
+                // defaults por ciclo
+                out_we    <= 1'b0;
+                out_wdata <= 8'd0;
+
                 if (state != S_DONE)
                     cycle_count <= cycle_count + 1;
 
                 case (state)
-                    //-----------------------------------------
-                    // Inicio: latch de parámetros de escala
-                    //-----------------------------------------
-                    S_IDLE: begin
-							 if (start) begin
-								  x_out       <= 0;
-								  y_out       <= 0;
 
-								  // Latch de parámetros según scale_mode
-								  out_w_reg   <= out_w_sel;
-								  out_h_reg   <= out_h_sel;
-								  step_x_q    <= step_x_q_sel;
-								  step_y_q    <= step_y_q_sel;
+                    // -----------------------------------------
+                    // INICIO
+                    // -----------------------------------------
+                    S_IDLE: if (start) begin
+                        x_out <= 0;
+                        y_out <= 0;
 
-								  // 🔹 Inicialización distinta según escala
-								  if (scale_mode == 2'b10) begin
-										// 0.5 -> no usamos src_x_q/src_y_q en S_SETUP (tenemos caso especial)
-										src_x_q <= '0;
-										src_y_q <= '0;
-								  end
-								  else begin
-										// 1.0 y 0.75 -> arrancar en el CENTRO del primer píxel
-										// src_x_q = step_x_q / 2 ; src_y_q = step_y_q / 2
-										src_x_q <= step_x_q_sel >>> 1;  // división entre 2
-										src_y_q <= step_y_q_sel >>> 1;
-								  end
+                        out_w_reg <= out_w_sel;
+                        out_h_reg <= out_h_sel;
 
-								  cycle_count <= 32'd0;
-								  rd_count    <= 32'd0;
-								  wr_count    <= 32'd0;
-							 end
-						end
+                        step_x_q <= step_x_q_sel;
+                        step_y_q <= step_y_q_sel;
 
+                        cycle_count <= 0;
+                        rd_count    <= 0;
+                        wr_count    <= 0;
 
-                    //-----------------------------------------
-                    // Calcula x0,y0,fx,fy a partir de src_x_q,y_q
-                    //-----------------------------------------
-						// Dentro del always_ff @(posedge clk or negedge rst_n)
-						// en el case (state)
-							S_SETUP: begin
-								 // ✅ CAMINO ESPECIAL PARA ESCALA 0.5 (scale_mode = 2'b10)
-								 if (scale_mode == 2'b10) begin
-									  // Mantenemos la lógica "simple" que ya funcionaba:
-									  // bloque 2x2 con esquina (2*x_out, 2*y_out)
-									  x0 <= x_out << 1;   // 2 * x_out
-									  y0 <= y_out << 1;   // 2 * y_out
+                        if (scale_mode == 2'b10) begin
+                            src_x_q <= 0;
+                            src_y_q <= 0;
+                        end else begin
+                            src_x_q <= step_x_q_sel >> 1;
+                            src_y_q <= step_y_q_sel >> 1;
+                        end
+                    end
 
-									  // Centro del bloque: fx = fy = 0.5 en QFRAC
-									  fx_reg <= ONE_Q >> 1;
-									  fy_reg <= ONE_Q >> 1;
-								 end
-								 else begin
-									  // 🔹 Para 1.0 y 0.75 seguimos usando las coordenadas fuente genéricas
-									  int unsigned x0_tmp, y0_tmp;
+                    // -----------------------------------------
+                    // SETUP
+                    // -----------------------------------------
+                    S_SETUP: begin
+                        if (scale_mode == 2'b10) begin
+                            // escala 0.5 (caso especial)
+                            x0     <= x_out << 1;
+                            y0     <= y_out << 1;
+                            fx_reg <= ONE_Q >> 1;
+                            fy_reg <= ONE_Q >> 1;
+                        end
+                        else begin
+                            int unsigned x0_tmp, y0_tmp;
+                            int unsigned max_x0;
+                            int unsigned max_y0;
 
-									  // Parte entera de src_x_q / src_y_q
-									  x0_tmp = src_x_q >> FRAC;
-									  y0_tmp = src_y_q >> FRAC;
+                            max_x0 = IMG_W - 2;
+                            max_y0 = IMG_H - 2;
 
-									  // Clamp para evitar salirnos (x0+1, y0+1)
-									  if (x0_tmp >= IMG_W-1)
-											x0 <= IMG_W-2;
-									  else
-											x0 <= x0_tmp;
+                            x0_tmp = src_x_q >> FRAC;
+                            y0_tmp = src_y_q >> FRAC;
 
-									  if (y0_tmp >= IMG_H-1)
-											y0 <= IMG_H-2;
-									  else
-											y0 <= y0_tmp;
+                            x0 <= (x0_tmp > max_x0) ? max_x0 : x0_tmp;
+                            y0 <= (y0_tmp > max_y0) ? max_y0 : y0_tmp;
 
-									  // Parte fraccionaria
-									  fx_reg <= src_x_q[FRAC-1:0];
-									  fy_reg <= src_y_q[FRAC-1:0];
-								 end
-							end
+                            fx_reg <= src_x_q[FRAC-1:0];
+                            fy_reg <= src_y_q[FRAC-1:0];
+                        end
+                    end
 
-
-                    //-----------------------------------------
-                    // Lecturas de vecinos (p00,p10,p01,p11)
-                    //-----------------------------------------
+                    // -----------------------------------------
+                    // LECTURAS
+                    // -----------------------------------------
                     S_RD_P00_A: begin
                         in_addr  <= y0 * IMG_W + x0;
                         rd_count <= rd_count + 1;
@@ -385,9 +342,9 @@ module controller_downscale_seq #(
                     end
                     S_RD_P11_D: p11_reg <= in_rdata;
 
-                    //-----------------------------------------
-                    // Lanza núcleo bilineal
-                    //-----------------------------------------
+                    // -----------------------------------------
+                    // INTERP
+                    // -----------------------------------------
                     S_INTERP_START: begin
                         i_p00 <= p00_reg;
                         i_p10 <= p10_reg;
@@ -397,48 +354,39 @@ module controller_downscale_seq #(
                         i_fy  <= fy_reg;
                     end
 
-                    //-----------------------------------------
-                    // Escritura de resultado
-                    //-----------------------------------------
+                    // -----------------------------------------
+                    // ESCRITURA
+                    // -----------------------------------------
                     S_WRITE: begin
-                        out_addr <= y_out * out_w_reg + x_out;
-                        wr_count <= wr_count + 1;
+                        out_addr   <= y_out * out_w_reg + x_out;
+                        out_wdata  <= i_pixel_out;
+                        out_we     <= 1'b1;
+                        wr_count   <= wr_count + 1;
                     end
 
-                    //-----------------------------------------
-                    // Avanzar a siguiente píxel de salida
-                    //-----------------------------------------
-							S_NEXT: begin
-								 if (x_out == out_w_reg-1) begin
-									  // Fin de fila
-									  x_out <= 0;
+                    // -----------------------------------------
+                    // SIGUIENTE PIXEL
+                    // -----------------------------------------
+                    S_NEXT: begin
+                        if (x_out == out_w_reg-1) begin
+                            x_out <= 0;
 
-									  if (scale_mode == 2'b10) begin
-											// Escala 0.5: usamos el camino especial (2×2 con centro),
-											// src_x_q no se usa en S_SETUP, así que puede quedar en 0.
-											src_x_q <= '0;
-									  end
-									  else begin
-											// Escalas 0.75 (01) y 1.0 (00):
-											// reiniciamos src_x_q al CENTRO del primer píxel de la fila
-											// src_x_q = step_x_q / 2
-											src_x_q <= step_x_q >>> 1;  // si se queja, usar: src_x_q <= step_x_q / 2;
-									  end
+                            if (scale_mode == 2'b10)
+                                src_x_q <= 0;
+                            else
+                                src_x_q <= step_x_q >> 1;
 
-									  if (y_out != out_h_reg-1) begin
-											y_out   <= y_out + 1;
-											src_y_q <= src_y_q + step_y_q;
-									  end
-								 end
-								 else begin
-									  // Siguiente columna
-									  x_out   <= x_out + 1;
-									  src_x_q <= src_x_q + step_x_q;
-								 end
-							end
+                            if (y_out != out_h_reg-1) begin
+                                y_out   <= y_out + 1;
+                                src_y_q <= src_y_q + step_y_q;
+                            end
+                        end
+                        else begin
+                            x_out   <= x_out + 1;
+                            src_x_q <= src_x_q + step_x_q;
+                        end
+                    end
 
-
-                    default: ;
                 endcase
             end
         end
