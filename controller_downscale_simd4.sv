@@ -120,12 +120,14 @@ module controller_downscale_simd4 #(
     int unsigned y_out;
 
     // Para cada lane, coordenadas fuente y datos de vecinos
-    q16_t             src_x_q [LANES];
-    q16_t             src_y_q [LANES];
+    // Para cada lane, coordenadas fuente y datos de vecinos
+    logic [31:0]      src_x_q [LANES];   // Q0.FRAC en 32 bits (igual que en el secuencial)
+    logic [31:0]      src_y_q [LANES];
     int unsigned      x0_lane [LANES];
     int unsigned      y0_lane [LANES];
     logic [FRAC-1:0]  fx_lane [LANES];
     logic [FRAC-1:0]  fy_lane [LANES];
+
 
     // Vecinos leídos de RAM
     u8_t p00_lane [LANES];
