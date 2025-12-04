@@ -1,23 +1,17 @@
 // interp_pkg.sv
 
+
 package interp_pkg;
 
   // Número de bits fraccionarios en el punto fijo
   parameter int FRAC_BITS = 8;
-
-  // Bits de parte entera (soporta hasta 2^INT_BITS - 1)
-  // Con 10 bits integres soportas hasta 1023 -> suficiente para 512x512.
-  parameter int INT_BITS  = 10;
-
-  // Total de bits del número fijo
-  parameter int Q_BITS    = INT_BITS + FRAC_BITS;
 
   // Constante "1.0" en Q0.FRAC_BITS (por ejemplo 1.0 = 256 para FRAC_BITS = 8)
   parameter int ONE_Q = 1 << FRAC_BITS;
 
   // Tipos básicos
   typedef logic [7:0] u8_t;                 // píxel 8 bits
-  typedef logic [Q_BITS-1:0] q16_t;         // ahora rango ampliado Q(INT_BITS).8
+  typedef logic [15:0] q16_t;               // valor Q8.8 genérico (para coords)
 
   // Función de clamp a [0,255]
   function automatic u8_t clamp_u8(input integer x);
