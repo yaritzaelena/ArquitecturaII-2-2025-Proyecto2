@@ -6,8 +6,8 @@ cmd_step => cmd_step.IN1
 cmd_continue => cmd_continue.IN1
 cmd_halt => cmd_halt.IN1
 mode_simd => mode_simd.IN1
-done <= controller_downscale:u_ctrl.done
-halted <= step_controller:u_step_ctrl.halted
+done << controller_downscale:u_ctrl.done
+halted << step_controller:u_step_ctrl.halted
 
 
 |Proyecto2Arqui2|step_controller:u_step_ctrl
@@ -1484,8 +1484,10 @@ start => next_state.OUTPUTSELECT
 done <= done.DB_MAX_OUTPUT_PORT_TYPE
 scale_mode[0] => Equal0.IN3
 scale_mode[0] => Equal1.IN3
+scale_mode[0] => Equal4.IN1
 scale_mode[1] => Equal0.IN2
 scale_mode[1] => Equal1.IN2
+scale_mode[1] => Equal4.IN0
 in_we <= <GND>
 in_addr[0] <= in_addr[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 in_addr[1] <= in_addr[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE

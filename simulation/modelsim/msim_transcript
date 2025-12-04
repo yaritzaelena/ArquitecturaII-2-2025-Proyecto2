@@ -12,37 +12,37 @@
 # 
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_pkg.sv 
 # -- Compiling package interp_pkg
 # 
 # Top level modules:
 # 	--none--
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:51 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/ram_img.sv 
 # -- Compiling module ram_img
 # 
 # Top level modules:
 # 	ram_img
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:51 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/step_controller.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/step_controller.sv 
 # -- Compiling module step_controller
 # 
 # Top level modules:
 # 	step_controller
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:51 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_secuencial.sv 
 # -- Compiling package interp_secuencial_sv_unit
 # -- Importing package interp_pkg
@@ -50,11 +50,11 @@
 # 
 # Top level modules:
 # 	interp_secuencial
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:51 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/Proyecto2Arqui2.sv 
 # -- Compiling package Proyecto2Arqui2_sv_unit
 # -- Importing package interp_pkg
@@ -62,11 +62,11 @@
 # 
 # Top level modules:
 # 	Proyecto2Arqui2
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:51 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/interp_simd4.sv 
 # -- Compiling package interp_simd4_sv_unit
 # -- Importing package interp_pkg
@@ -74,11 +74,11 @@
 # 
 # Top level modules:
 # 	interp_simd4
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:51 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_seq.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:51 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_seq.sv 
 # -- Compiling package controller_downscale_seq_sv_unit
 # -- Importing package interp_pkg
@@ -86,11 +86,11 @@
 # 
 # Top level modules:
 # 	controller_downscale_seq
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:52 on Dec 04,2025, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_simd4.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:52 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale_simd4.sv 
 # -- Compiling package controller_downscale_simd4_sv_unit
 # -- Importing package interp_pkg
@@ -98,11 +98,11 @@
 # 
 # Top level modules:
 # 	controller_downscale_simd4
-# End time: 03:57:24 on Dec 04,2025, Elapsed time: 0:00:00
+# End time: 05:06:52 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -sv -work work +incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2 {C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:57:24 on Dec 04,2025
+# Start time: 05:06:52 on Dec 04,2025
 # vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2" C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2/controller_downscale.sv 
 # -- Compiling package controller_downscale_sv_unit
 # -- Importing package interp_pkg
@@ -110,156 +110,69 @@
 # 
 # Top level modules:
 # 	controller_downscale
-# End time: 03:57:25 on Dec 04,2025, Elapsed time: 0:00:01
+# End time: 05:06:52 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 cd C:/Users/irodr/Documents/ArquitecturaII-2-2025-Proyecto2
 # reading modelsim.ini
-vlib work
-# ** Warning: (vlib-34) Library already exists at "work".
-vmap work work
-# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
-# vmap work work 
-# Modifying modelsim.ini
-vlog interp_pkg.sv ram_img.sv step_controller.sv interp_secuencial.sv interp_simd4.sv controller_downscale_seq.sv controller_downscale_simd4.sv controller_downscale.sv Proyecto2Arqui2.sv Proyecto2Arqui2_tb.sv
+vlog interp_pkg.sv ram_img.sv interp_secuencial.sv controller_downscale_seq.sv controller_downscale_seq_tb.sv
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 03:58:02 on Dec 04,2025
-# vlog -reportprogress 300 interp_pkg.sv ram_img.sv step_controller.sv interp_secuencial.sv interp_simd4.sv controller_downscale_seq.sv controller_downscale_simd4.sv controller_downscale.sv Proyecto2Arqui2.sv Proyecto2Arqui2_tb.sv 
+# Start time: 05:07:41 on Dec 04,2025
+# vlog -reportprogress 300 interp_pkg.sv ram_img.sv interp_secuencial.sv controller_downscale_seq.sv controller_downscale_seq_tb.sv 
 # -- Compiling package interp_pkg
 # -- Compiling module ram_img
-# -- Compiling module step_controller
 # -- Compiling package interp_secuencial_sv_unit
 # -- Importing package interp_pkg
 # -- Compiling module interp_secuencial
-# -- Compiling package interp_simd4_sv_unit
-# -- Importing package interp_pkg
-# -- Compiling module interp_simd4
 # -- Compiling package controller_downscale_seq_sv_unit
 # -- Importing package interp_pkg
 # -- Compiling module controller_downscale_seq
-# -- Compiling package controller_downscale_simd4_sv_unit
+# -- Compiling package controller_downscale_seq_tb_sv_unit
 # -- Importing package interp_pkg
-# -- Compiling module controller_downscale_simd4
-# -- Compiling package controller_downscale_sv_unit
-# -- Importing package interp_pkg
-# -- Compiling module controller_downscale
-# -- Compiling package Proyecto2Arqui2_sv_unit
-# -- Importing package interp_pkg
-# -- Compiling module Proyecto2Arqui2
-# -- Compiling package Proyecto2Arqui2_tb_sv_unit
-# -- Importing package interp_pkg
-# -- Compiling module Proyecto2Arqui2_tb
+# -- Compiling module controller_downscale_seq_tb
 # 
 # Top level modules:
-# 	Proyecto2Arqui2_tb
-# End time: 03:58:02 on Dec 04,2025, Elapsed time: 0:00:00
+# 	controller_downscale_seq_tb
+# End time: 05:07:41 on Dec 04,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-vsim Proyecto2Arqui2_tb
-# vsim Proyecto2Arqui2_tb 
-# Start time: 03:58:02 on Dec 04,2025
+vsim controller_downscale_seq_tb
+# vsim controller_downscale_seq_tb 
+# Start time: 05:07:41 on Dec 04,2025
 # Loading sv_std.std
 # Loading work.interp_pkg
-# Loading work.Proyecto2Arqui2_tb_sv_unit
-# Loading work.Proyecto2Arqui2_tb
-# Loading work.Proyecto2Arqui2_sv_unit
-# Loading work.Proyecto2Arqui2
-# Loading work.step_controller
+# Loading work.controller_downscale_seq_tb_sv_unit
+# Loading work.controller_downscale_seq_tb
 # Loading work.ram_img
-# Loading work.controller_downscale_sv_unit
-# Loading work.controller_downscale
 # Loading work.controller_downscale_seq_sv_unit
 # Loading work.controller_downscale_seq
 # Loading work.interp_secuencial_sv_unit
 # Loading work.interp_secuencial
-# Loading work.controller_downscale_simd4_sv_unit
-# Loading work.controller_downscale_simd4
-# Loading work.interp_simd4_sv_unit
-# Loading work.interp_simd4
-# ** Warning: (vsim-3017) controller_downscale.sv(102): [TFMPC] - Too few port connections. Expected 16, found 15.
-#    Time: 0 ps  Iteration: 0  Instance: /Proyecto2Arqui2_tb/dut/u_ctrl/u_seq File: controller_downscale_seq.sv
-# ** Warning: (vsim-3722) controller_downscale.sv(102): [TFMPC] - Missing connection for port 'scale_mode'.
 run -all
 # Cargando imagen desde cameraman_512x512.hex en ram_in...
 # Imagen cargada en RAM de entrada.
 # Reset desactivado en t=50000
-# Enviando pulso de start en t=70000 (mode_simd = 0)
-# Esperando done=1 ...
-# DONE se activó en t=34078795000
-# ===== RAM OUTPUT (primeros 64 valores) =====
-# out[0] = 27
-# out[1] = 16
-# out[2] = 32
-# out[3] = 22
-# out[4] = 28
-# out[5] = 38
-# out[6] = 19
-# out[7] = 45
-# out[8] = 36
-# out[9] = 49
-# out[10] = 59
-# out[11] = 37
-# out[12] = 39
-# out[13] = 46
-# out[14] = 49
-# out[15] = 38
-# out[16] = 45
-# out[17] = 34
-# out[18] = 45
-# out[19] = 47
-# out[20] = 45
-# out[21] = 47
-# out[22] = 60
-# out[23] = 53
-# out[24] = 72
-# out[25] = 70
-# out[26] = 89
-# out[27] = 119
-# out[28] = 94
-# out[29] = 58
-# out[30] = 63
-# out[31] = 54
-# out[32] = 36
-# out[33] = 41
-# out[34] = 37
-# out[35] = 31
-# out[36] = 33
-# out[37] = 31
-# out[38] = 28
-# out[39] = 32
-# out[40] = 30
-# out[41] = 24
-# out[42] = 35
-# out[43] = 30
-# out[44] = 34
-# out[45] = 51
-# out[46] = 61
-# out[47] = 84
-# out[48] = 182
-# out[49] = 106
-# out[50] = 79
-# out[51] = 63
-# out[52] = 67
-# out[53] = 81
-# out[54] = 57
-# out[55] = 55
-# out[56] = 59
-# out[57] = 44
-# out[58] = 55
-# out[59] = 61
-# out[60] = 39
-# out[61] = 45
-# out[62] = 62
-# out[63] = 41
-# ---- Performance counters (modo Secuencial) ----
-#   Ciclos       : 3407872
-#   Lecturas RAM : 1048576
-#   Escrituras RAM: 262144
-# Volcando RAM de salida a top_out_image.hex ...
+# ===== Probando escala 0.5 =====
+# DONE 0.5 en t=8519745000
+# Ciclos: 851968  Lecturas: 262144  Escrituras: 65536
+# Volcando RAM de salida a out_scale05.hex ...
+# Listo.
+# ===== Probando escala 0.75 =====
+# DONE 0.75 en t=27689055000
+# Ciclos: 1916928  Lecturas: 589824  Escrituras: 147456
+# Volcando RAM de salida a out_scale075.hex ...
+# Listo.
+# ===== Probando escala 1.0 =====
+# DONE 1.0 en t=61767805000
+# Ciclos: 3407872  Lecturas: 1048576  Escrituras: 262144
+# Volcando RAM de salida a out_scale10.hex ...
 # Listo.
 # ======================================
-#   Testbench Proyecto2Arqui2 TERMINADO
+#   Testbench controller_downscale_seq_tb TERMINADO
 # ======================================
-# ** Note: $finish    : Proyecto2Arqui2_tb.sv(171)
-#    Time: 34078895 ns  Iteration: 0  Instance: /Proyecto2Arqui2_tb
-# End time: 03:58:18 on Dec 04,2025, Elapsed time: 0:00:16
-# Errors: 0, Warnings: 2
+# ** Note: $finish    : controller_downscale_seq_tb.sv(208)
+#    Time: 61767805 ns  Iteration: 3  Instance: /controller_downscale_seq_tb
+# 1
+# Break in Module controller_downscale_seq_tb at controller_downscale_seq_tb.sv line 208
+
+# End time: 05:10:20 on Dec 04,2025, Elapsed time: 0:02:39
+# Errors: 0, Warnings: 0

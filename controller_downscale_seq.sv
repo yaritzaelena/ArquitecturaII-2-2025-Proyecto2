@@ -285,50 +285,78 @@ module controller_downscale_seq #(
                     // Inicio: latch de parámetros de escala
                     //-----------------------------------------
                     S_IDLE: begin
-                        if (start) begin
-                            x_out       <= 0;
-                            y_out       <= 0;
+							 if (start) begin
+								  x_out       <= 0;
+								  y_out       <= 0;
 
-                            // Latch de parámetros según scale_mode
-                            out_w_reg   <= out_w_sel;
-                            out_h_reg   <= out_h_sel;
-                            step_x_q    <= step_x_q_sel;
-                            step_y_q    <= step_y_q_sel;
+								  // Latch de parámetros según scale_mode
+								  out_w_reg   <= out_w_sel;
+								  out_h_reg   <= out_h_sel;
+								  step_x_q    <= step_x_q_sel;
+								  step_y_q    <= step_y_q_sel;
 
-                            src_x_q     <= '0;
-                            src_y_q     <= '0;
+								  // 🔹 Inicialización distinta según escala
+								  if (scale_mode == 2'b10) begin
+										// 0.5 -> no usamos src_x_q/src_y_q en S_SETUP (tenemos caso especial)
+										src_x_q <= '0;
+										src_y_q <= '0;
+								  end
+								  else begin
+										// 1.0 y 0.75 -> arrancar en el CENTRO del primer píxel
+										// src_x_q = step_x_q / 2 ; src_y_q = step_y_q / 2
+										src_x_q <= step_x_q_sel >>> 1;  // división entre 2
+										src_y_q <= step_y_q_sel >>> 1;
+								  end
 
-                            cycle_count <= 32'd0;
-                            rd_count    <= 32'd0;
-                            wr_count    <= 32'd0;
-                        end
-                    end
+								  cycle_count <= 32'd0;
+								  rd_count    <= 32'd0;
+								  wr_count    <= 32'd0;
+							 end
+						end
+
 
                     //-----------------------------------------
                     // Calcula x0,y0,fx,fy a partir de src_x_q,y_q
                     //-----------------------------------------
-                    S_SETUP: begin
-                        int unsigned x0_tmp, y0_tmp;
+						// Dentro del always_ff @(posedge clk or negedge rst_n)
+						// en el case (state)
+							S_SETUP: begin
+								 // ✅ CAMINO ESPECIAL PARA ESCALA 0.5 (scale_mode = 2'b10)
+								 if (scale_mode == 2'b10) begin
+									  // Mantenemos la lógica "simple" que ya funcionaba:
+									  // bloque 2x2 con esquina (2*x_out, 2*y_out)
+									  x0 <= x_out << 1;   // 2 * x_out
+									  y0 <= y_out << 1;   // 2 * y_out
 
-                        // Parte entera
-                        x0_tmp = src_x_q >> FRAC;
-                        y0_tmp = src_y_q >> FRAC;
+									  // Centro del bloque: fx = fy = 0.5 en QFRAC
+									  fx_reg <= ONE_Q >> 1;
+									  fy_reg <= ONE_Q >> 1;
+								 end
+								 else begin
+									  // 🔹 Para 1.0 y 0.75 seguimos usando las coordenadas fuente genéricas
+									  int unsigned x0_tmp, y0_tmp;
 
-                        // Clamp para evitar salirnos (x0+1, y0+1)
-                        if (x0_tmp >= IMG_W-1)
-                            x0 <= IMG_W-2;
-                        else
-                            x0 <= x0_tmp;
+									  // Parte entera de src_x_q / src_y_q
+									  x0_tmp = src_x_q >> FRAC;
+									  y0_tmp = src_y_q >> FRAC;
 
-                        if (y0_tmp >= IMG_H-1)
-                            y0 <= IMG_H-2;
-                        else
-                            y0 <= y0_tmp;
+									  // Clamp para evitar salirnos (x0+1, y0+1)
+									  if (x0_tmp >= IMG_W-1)
+											x0 <= IMG_W-2;
+									  else
+											x0 <= x0_tmp;
 
-                        // Parte fraccionaria
-                        fx_reg <= src_x_q[FRAC-1:0];
-                        fy_reg <= src_y_q[FRAC-1:0];
-                    end
+									  if (y0_tmp >= IMG_H-1)
+											y0 <= IMG_H-2;
+									  else
+											y0 <= y0_tmp;
+
+									  // Parte fraccionaria
+									  fx_reg <= src_x_q[FRAC-1:0];
+									  fy_reg <= src_y_q[FRAC-1:0];
+								 end
+							end
+
 
                     //-----------------------------------------
                     // Lecturas de vecinos (p00,p10,p01,p11)
@@ -380,23 +408,35 @@ module controller_downscale_seq #(
                     //-----------------------------------------
                     // Avanzar a siguiente píxel de salida
                     //-----------------------------------------
-                    S_NEXT: begin
-                        if (x_out == out_w_reg-1) begin
-                            // Fin de fila
-                            x_out   <= 0;
-                            src_x_q <= '0;
+							S_NEXT: begin
+								 if (x_out == out_w_reg-1) begin
+									  // Fin de fila
+									  x_out <= 0;
 
-                            if (y_out != out_h_reg-1) begin
-                                y_out   <= y_out + 1;
-                                src_y_q <= src_y_q + step_y_q;
-                            end
-                        end
-                        else begin
-                            // Siguiente columna
-                            x_out   <= x_out + 1;
-                            src_x_q <= src_x_q + step_x_q;
-                        end
-                    end
+									  if (scale_mode == 2'b10) begin
+											// Escala 0.5: usamos el camino especial (2×2 con centro),
+											// src_x_q no se usa en S_SETUP, así que puede quedar en 0.
+											src_x_q <= '0;
+									  end
+									  else begin
+											// Escalas 0.75 (01) y 1.0 (00):
+											// reiniciamos src_x_q al CENTRO del primer píxel de la fila
+											// src_x_q = step_x_q / 2
+											src_x_q <= step_x_q >>> 1;  // si se queja, usar: src_x_q <= step_x_q / 2;
+									  end
+
+									  if (y_out != out_h_reg-1) begin
+											y_out   <= y_out + 1;
+											src_y_q <= src_y_q + step_y_q;
+									  end
+								 end
+								 else begin
+									  // Siguiente columna
+									  x_out   <= x_out + 1;
+									  src_x_q <= src_x_q + step_x_q;
+								 end
+							end
+
 
                     default: ;
                 endcase

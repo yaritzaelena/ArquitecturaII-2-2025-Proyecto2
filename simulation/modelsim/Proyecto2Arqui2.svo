@@ -16,7 +16,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
 
-// DATE "12/04/2025 03:57:07"
+// DATE "12/04/2025 05:06:38"
 
 // 
 // Device: Altera 5CGXFC7C7F23C8 Package FBGA484
@@ -38,15 +38,15 @@ module Proyecto2Arqui2 (
 	mode_simd,
 	done,
 	halted);
-input 	logic clk ;
-input 	logic rst_n ;
-input 	logic start ;
-input 	logic cmd_step ;
-input 	logic cmd_continue ;
-input 	logic cmd_halt ;
-input 	logic mode_simd ;
-output 	logic done ;
-output 	logic halted ;
+input 	clk;
+input 	rst_n;
+input 	start;
+input 	cmd_step;
+input 	cmd_continue;
+input 	cmd_halt;
+input 	mode_simd;
+output 	done;
+output 	halted;
 
 // Design Ports Information
 // done	=>  Location: PIN_V6,	 I/O Standard: 2.5 V,	 Current Strength: Default
